@@ -10,6 +10,7 @@ namespace UI.Installers
         [field: SerializeField] public AuthorizationCanvasView AuthorizationCanvasView { get; private set; }
         [field: SerializeField] public SignInCanvasView SignInCanvasView { get; private set; }
         [field: SerializeField] public CreateAccountCanvasView CreateAccountCanvasView { get; private set; }
+        [field: SerializeField] public ErrorCanvasView ErrorCanvasView { get; private set; }
 
         public override void InstallBindings()
         {
@@ -34,6 +35,12 @@ namespace UI.Installers
             Container
                 .Bind<CreateAccountCanvasView>()
                 .FromInstance(CreateAccountCanvasView)
+                .AsSingle()
+                .NonLazy();
+            
+            Container
+                .Bind<ErrorCanvasView>()
+                .FromInstance(ErrorCanvasView)
                 .AsSingle()
                 .NonLazy();
         }

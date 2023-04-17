@@ -62,10 +62,10 @@ namespace Installers
 
         private void BindPlayFab()
         {
-            //Container
-            //    .BindInterfacesAndSelfTo<Updater>()
-            //    .AsSingle()
-            //    .NonLazy();
+            Container
+                .BindInterfacesAndSelfTo<PlayFabService>()
+                .AsSingle()
+                .NonLazy();
         }
         
         private void BindUpdater()

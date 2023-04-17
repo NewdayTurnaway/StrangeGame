@@ -18,28 +18,28 @@ namespace Services
         {
             if (CurrentState == GameState.Singleplayer) return;
             CurrentState = GameState.Singleplayer;
-            _sceneLoader.LoadScene(SceneName.SINGLEPLAYER);
+            _sceneLoader.LoadSceneAsync(SceneName.SINGLEPLAYER);
         }
 
         public void StartMultiplayerGame()
         {
             if (CurrentState == GameState.Multiplayer) return;
             CurrentState = GameState.Multiplayer;
-            _sceneLoader.LoadScene(SceneName.MULTIPLAYER);
+            _sceneLoader.LoadSceneAsync(SceneName.MULTIPLAYER);
         }
 
         public void GoToLogin()
         {
             if (CurrentState == GameState.Login) return;
             CurrentState = GameState.Login;
-            _sceneLoader.LoadScene(SceneName.LOGIN);
+            _sceneLoader.LoadSceneAsync(SceneName.LOGIN);
         }
         
         public void GoToMenu()
         {
             if (CurrentState == GameState.MainMenu) return;
             CurrentState = GameState.MainMenu;
-            _sceneLoader.LoadScene(SceneName.MAIN_MENU);
+            _sceneLoader.LoadSceneAsync(SceneName.MAIN_MENU);
         }
 
         public void ExitGame()

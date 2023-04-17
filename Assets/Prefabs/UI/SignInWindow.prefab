@@ -467,10 +467,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 1713799920386413257}
+  _backButton: {fileID: 1713799920710268274}
+  _signInButton: {fileID: 1713799921446052563}
   <EmailInputField>k__BackingField: {fileID: 1713799920550245993}
   <PasswordInputField>k__BackingField: {fileID: 1713799921445469512}
-  _backButton: {fileID: 1713799920710268274}
-  <SignInButton>k__BackingField: {fileID: 1713799921446052563}
 --- !u!1 &1713799920475763538
 GameObject:
   m_ObjectHideFlags: 0

@@ -2998,7 +2998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 5280036316109156431}
   _backButton: {fileID: 5280036315271813339}
-  <CreateAccountButton>k__BackingField: {fileID: 5280036314653920678}
+  _createAccountButton: {fileID: 5280036314653920678}
   <EmailInputField>k__BackingField: {fileID: 5280036316017225705}
   <UsernameInputField>k__BackingField: {fileID: 5280036315043198936}
   <PasswordInputField>k__BackingField: {fileID: 5280036315740030740}

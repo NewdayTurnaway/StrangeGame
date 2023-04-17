@@ -23,7 +23,7 @@ namespace UI
 
         private void OnDestroy()
         {
-            if(_signInAction != null) _signInButton.onClick.RemoveListener(_signInAction);
+            if (_signInAction != null) _signInButton.onClick.RemoveListener(_signInAction);
             if (_createAccountAction != null) _createAccountButton.onClick.RemoveListener(_createAccountAction);
         }
     }
