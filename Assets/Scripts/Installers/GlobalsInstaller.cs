@@ -18,8 +18,6 @@ namespace Installers
             BindPlayerData();
             BindPlayFab();
             BindUpdater();
-            
-            Debug.Log("Global!");
         }
 
         private void BindLoadingUIService()

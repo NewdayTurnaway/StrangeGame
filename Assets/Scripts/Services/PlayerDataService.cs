@@ -38,9 +38,16 @@ namespace Services
             PlayerName = "";
             PlayerEmail = "";
             PlayerPassword = "";
+            
+            SetPrefs();
         }
 
         public void Dispose()
+        {
+            SetPrefs();
+        }
+
+        private void SetPrefs()
         {
             PlayerPrefs.SetString(PLAYER_NAME, PlayerName);
             PlayerPrefs.SetString(PLAYER_EMAIL, PlayerEmail);
