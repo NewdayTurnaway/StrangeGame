@@ -9,11 +9,13 @@ namespace Installers
     public sealed class GlobalsInstaller : MonoInstaller
     {
         [field: SerializeField] public LoadingCanvasView LoadingCanvasView { get; private set; }
+        [field: SerializeField] public AudioSource Ambient { get; private set; }
 
         public override void InstallBindings()
         {
             BindLoadingUIService();
             BindSceneLoader();
+            BindAmbientAudioService();
             BindGameState();
             BindPlayerData();
             BindPlayFab();
@@ -38,6 +40,20 @@ namespace Installers
         {
             Container
                 .Bind<SceneLoader>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindAmbientAudioService()
+        {
+            Container
+                .Bind<AudioSource>()
+                .FromInstance(Ambient)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<AmbientAudioService>()
                 .AsSingle()
                 .NonLazy();
         }

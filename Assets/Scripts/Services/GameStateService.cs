@@ -11,7 +11,7 @@ namespace Services
         public GameStateService(SceneLoader.SceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
-            CurrentState = GameState.MainMenu;
+            CurrentState = GameState.Login;
         }
 
         public void StartSingleplayerGame()

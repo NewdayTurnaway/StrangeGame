@@ -41,9 +41,19 @@ namespace Services
             };
 
             PlayFabClientAPI.LoginWithEmailAddress(request, 
-                resultCallback => 
+                resultCallback =>
+                {
+                    OnLoginSuccess(email, password);
+                }, OnError);
+        }
+
+        private void OnLoginSuccess(string email, string password)
+        {
+            PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
+                resultCallback =>
                 {
                     _playerDataService.ChangeLoginStatus(true);
+                    _playerDataService.SetPlayer(resultCallback.AccountInfo.Username, email, password);
                     _sceneLoader.LoadSceneAsync(SceneLoader.SceneName.MAIN_MENU);
                 }, OnError);
         }

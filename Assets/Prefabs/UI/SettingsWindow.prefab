@@ -640,6 +640,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 3301383510407094288}
   _backButton: {fileID: 3301383511289165060}
+  <FullscreenToggle>k__BackingField: {fileID: 5589508477921311726}
+  <ResolutionDropdown>k__BackingField: {fileID: 5589508478470761568}
+  <QualityDropdown>k__BackingField: {fileID: 5589508479273088604}
+  <VolumeSlider>k__BackingField: {fileID: 5589508479272488722}
 --- !u!1 &3301383510472134065
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,7 +2696,7 @@ GameObject:
   - component: {fileID: 5589508477921311726}
   - component: {fileID: 5589508477921311725}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: FullscreenToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5491,7 +5495,7 @@ GameObject:
   - component: {fileID: 5589508479272488722}
   - component: {fileID: 5589508479272488721}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: VolumeSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

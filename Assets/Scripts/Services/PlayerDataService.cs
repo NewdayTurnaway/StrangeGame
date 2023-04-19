@@ -31,6 +31,8 @@ namespace Services
             PlayerName = name;
             PlayerEmail = email;
             PlayerPassword = password;
+
+            SetLoginPrefs();
         }
 
         public void ForgetPlayer()
@@ -39,15 +41,15 @@ namespace Services
             PlayerEmail = "";
             PlayerPassword = "";
             
-            SetPrefs();
+            SetLoginPrefs();
         }
 
         public void Dispose()
         {
-            SetPrefs();
+            SetLoginPrefs();
         }
 
-        private void SetPrefs()
+        private void SetLoginPrefs()
         {
             PlayerPrefs.SetString(PLAYER_NAME, PlayerName);
             PlayerPrefs.SetString(PLAYER_EMAIL, PlayerEmail);

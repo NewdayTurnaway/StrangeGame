@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
@@ -7,9 +8,14 @@ namespace Services.SceneLoader
     {
         private readonly LoadingUIService _loadingUIService;
 
+        public string StartScene { get; private set; }
+
+        public Action<string> SceneLoaded = _ => { };
+
         public SceneLoader(LoadingUIService loadingUIService)
         {
             _loadingUIService = loadingUIService;
+            StartScene = SceneManager.GetActiveScene().name;
         }
 
         public async void LoadSceneAsync(string sceneName)
@@ -24,6 +30,8 @@ namespace Services.SceneLoader
             }
 
             _loadingUIService.HideLoading();
+
+            SceneLoaded.Invoke(sceneName);
         }
     }
 }
