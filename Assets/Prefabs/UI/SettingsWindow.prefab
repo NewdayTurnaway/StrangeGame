@@ -640,6 +640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 3301383510407094288}
   _backButton: {fileID: 3301383511289165060}
+  <ConfirmButton>k__BackingField: {fileID: 3301383511503138329}
   <FullscreenToggle>k__BackingField: {fileID: 5589508477921311726}
   <ResolutionDropdown>k__BackingField: {fileID: 5589508478470761568}
   <QualityDropdown>k__BackingField: {fileID: 5589508479273088604}
@@ -2325,7 +2326,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 150}
+  m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5589508477796475883
 CanvasRenderer:
@@ -4133,7 +4134,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 150}
+  m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5589508478738177927
 CanvasRenderer:
@@ -5268,7 +5269,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &5589508479174312657
 MonoBehaviour:

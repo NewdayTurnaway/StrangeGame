@@ -6,6 +6,8 @@ namespace UI
 {
     public sealed class SettingsWindowCanvasView : BaseMenuWindowCanvasView
     {
+        [field:SerializeField] public Button ConfirmButton { get; private set; }
+
         [field: Header("Graphics")]
         [field:SerializeField] public Toggle FullscreenToggle { get; private set; }
         [field:SerializeField] public TMP_Dropdown ResolutionDropdown { get; private set; }

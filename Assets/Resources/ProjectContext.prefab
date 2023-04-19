@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <LoadingCanvasView>k__BackingField: {fileID: 234448183527946829}
+  <MasterAudioMixerGroup>k__BackingField: {fileID: 24300002, guid: 6790ce232d0e7984eb31c67e4e4d14ff, type: 2}
   <Ambient>k__BackingField: {fileID: 7808929576352136952}
 --- !u!1 &8005600460531777824
 GameObject:

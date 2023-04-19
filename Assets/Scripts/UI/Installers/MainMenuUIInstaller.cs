@@ -1,6 +1,6 @@
-using System;
 using UI.Services;
 using UnityEngine;
+using UnityEngine.Audio;
 using Zenject;
 
 namespace UI.Installers
@@ -15,7 +15,8 @@ namespace UI.Installers
         public override void InstallBindings()
         {
             BindCanvases();
-            BindAuthorizationService();
+            BindMainMenuService();
+            BindSettingsService();
         }
 
         private void BindCanvases()
@@ -45,10 +46,18 @@ namespace UI.Installers
                 .NonLazy();
         }
         
-        private void BindAuthorizationService()
+        private void BindMainMenuService()
         {
             Container
                 .BindInterfacesAndSelfTo<MainMenuService>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindSettingsService()
+        {
+            Container
+                .BindInterfacesAndSelfTo<SettingsService>()
                 .AsSingle()
                 .NonLazy();
         }

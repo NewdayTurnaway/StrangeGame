@@ -2,6 +2,7 @@ using Services;
 using Services.SceneLoader;
 using UI;
 using UnityEngine;
+using UnityEngine.Audio;
 using Zenject;
 
 namespace Installers
@@ -9,15 +10,19 @@ namespace Installers
     public sealed class GlobalsInstaller : MonoInstaller
     {
         [field: SerializeField] public LoadingCanvasView LoadingCanvasView { get; private set; }
+
+        [field: SerializeField] public AudioMixerGroup MasterAudioMixerGroup { get; private set; }
         [field: SerializeField] public AudioSource Ambient { get; private set; }
 
         public override void InstallBindings()
         {
             BindLoadingUIService();
             BindSceneLoader();
+            BindAudioMixerGroup();
             BindAmbientAudioService();
             BindGameState();
             BindPlayerData();
+            BindSettingsData();
             BindPlayFab();
             BindUpdater();
         }
@@ -40,6 +45,15 @@ namespace Installers
         {
             Container
                 .Bind<SceneLoader>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindAudioMixerGroup()
+        {
+            Container
+                .Bind<AudioMixerGroup>()
+                .FromInstance(MasterAudioMixerGroup)
                 .AsSingle()
                 .NonLazy();
         }
@@ -70,6 +84,14 @@ namespace Installers
         {
             Container
                 .BindInterfacesAndSelfTo<PlayerDataService>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindSettingsData()
+        {
+            Container
+                .BindInterfacesAndSelfTo<SettingsDataService>()
                 .AsSingle()
                 .NonLazy();
         }
