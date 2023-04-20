@@ -7,6 +7,7 @@ namespace Gameplay.Installers
 {
     public sealed class LevelInstaller : MonoInstaller
     {
+        [field: SerializeField] public Transform EnvironmentTransform { get; private set; }
         [field: SerializeField] public LevelConfig LevelConfig { get; private set; }
 
         public override void InstallBindings()
@@ -18,6 +19,11 @@ namespace Gameplay.Installers
 
         private void InstallLevelPart()
         {
+            Container
+                .Bind<Transform>()
+                .FromInstance(EnvironmentTransform)
+                .WhenInjectedInto<LevelPartFactory>();
+
             Container
                 .BindFactory<Vector3, LevelPartView, LevelPart, LevelPartFactory>()
                 .AsSingle();

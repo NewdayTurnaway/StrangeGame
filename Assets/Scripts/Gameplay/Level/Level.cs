@@ -9,9 +9,9 @@ namespace Gameplay.Level
 
         //private readonly Player _player;
         //private readonly Enemies _enemies;
-        //private readonly LevelEnvironment _levelEnvironment;
 
         public int CurrentLevelNumber { get; private set; }
+        public LevelPart CurrentLevelPart { get; private set; }
 
         public Level(
             int currentLevelNumber,
@@ -20,22 +20,32 @@ namespace Gameplay.Level
         {
             CurrentLevelNumber = currentLevelNumber;
             _levelParts = levelParts;
+            CurrentLevelPart = _levelParts[0];
             //_player = player;
             //_enemies = enemies;
-            //_levelEnvironment = levelEnvironment;
+
+            foreach (var levelPart in _levelParts)
+            {
+                levelPart.LevelPartChanged += OnLevelPartChanged;
+            }
         }
 
         public void Dispose()
         {
             foreach (var levelPart in _levelParts)
             {
+                levelPart.LevelPartChanged -= OnLevelPartChanged;
                 levelPart.Dispose();
             }
             _levelParts.Clear();
 
             //_player.Dispose();
             //_enemies.Dispose();
-            //_levelEnvironment.Dispose();
+        }
+
+        private void OnLevelPartChanged(LevelPart levelPart)
+        {
+            CurrentLevelPart = levelPart;
         }
     }
 }
