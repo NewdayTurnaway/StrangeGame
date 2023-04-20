@@ -1,4 +1,5 @@
 using Gameplay.Level.Generator;
+using Gameplay.Player;
 using Scriptables;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,20 @@ namespace Gameplay.Level
     {
         private readonly LevelConfig _levelConfig;
         private readonly LevelPartFactory _levelPartFactory;
-
+        private readonly PlayerFactory _playerFactory;
         private readonly LevelGenerator _levelGenerator;
 
         public event Action<Level> LevelCreated = (_) => { };
 
-        public LevelFactory(LevelConfig levelConfig, LevelPartFactory levelPartFactory)
+        public LevelFactory(
+            LevelConfig levelConfig, 
+            LevelPartFactory levelPartFactory,
+            PlayerFactory playerFactory
+            )
         {
             _levelConfig = levelConfig;
             _levelPartFactory = levelPartFactory;
+            _playerFactory = playerFactory;
 
             _levelGenerator = new LevelGenerator();
         }
@@ -37,7 +43,7 @@ namespace Gameplay.Level
                 levelParts.Add(levelPart);
             }
 
-            var level = new Level(levelNumber, levelParts);
+            var level = new Level(levelNumber, levelParts, _playerFactory);
             LevelCreated.Invoke(level);
             return level;
         }

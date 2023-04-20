@@ -1,5 +1,6 @@
 using System;
 using Gameplay.Input;
+using Gameplay.Player;
 using Scriptables;
 using Services;
 using UnityEngine;
@@ -13,24 +14,33 @@ namespace Gameplay.Services
 
         private readonly Updater _updater;
         private readonly PlayerInput _playerInput;
+        private readonly PlayerFactory _playerFactory;
         private readonly CameraConfig _cameraConfig;
         private readonly Transform _cameraTransform;
+
+        private Player.Player _player;
+        private Transform _headTransform;
 
         private float _xRotation;
         private float _yRotation;
 
-        public GameCameraService(Updater updater, PlayerInput playerInput, CameraConfig cameraConfig, Camera mainCamera)
+        public GameCameraService(
+            Updater updater, 
+            PlayerInput playerInput, 
+            PlayerFactory playerFactory,
+            CameraConfig cameraConfig, 
+            Camera mainCamera)
         {
             _updater = updater;
             _playerInput = playerInput;
+            _playerFactory = playerFactory;
             _cameraConfig = cameraConfig;
             _cameraTransform = mainCamera.transform;
 
             _playerInput.MouseXAxisInput += OnMouseXChange;
             _playerInput.MouseYAxisInput += OnMouseYChange;
-         
-            _updater.SubscribeToUpdate(RotateCamera);
-            _updater.SubscribeToUpdate(FollowPlayer);
+
+            _playerFactory.PlayerCreated += OnPlayerCreated;
         }
 
         public void Initialize()
@@ -43,9 +53,31 @@ namespace Gameplay.Services
         {
             _playerInput.MouseXAxisInput -= OnMouseXChange;
             _playerInput.MouseYAxisInput -= OnMouseYChange;
+
+            _playerFactory.PlayerCreated -= OnPlayerCreated;
             
+            if(_player != null)
+            {
+                _player.PlayerDestroyed -= OnPlayerDestroyed;
+            }
+
             _updater.UnsubscribeFromUpdate(RotateCamera);
             _updater.UnsubscribeFromUpdate(FollowPlayer);
+        }
+
+        private void OnPlayerCreated(Player.Player player)
+        {
+            _player = player;
+            _headTransform = _player.PlayerView.Head;
+
+            _player.PlayerDestroyed += OnPlayerDestroyed;
+            _updater.SubscribeToUpdate(RotateCamera);
+            _updater.SubscribeToUpdate(FollowPlayer);
+        }
+
+        private void OnPlayerDestroyed()
+        {
+            Dispose();
         }
 
         private void OnMouseXChange(float mouseX)
@@ -62,12 +94,12 @@ namespace Gameplay.Services
         private void RotateCamera()
         {
             _cameraTransform.rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
-            //_playerTransform.rotation = Quaternion.Euler(0, _yRotation, 0);
+            _headTransform.rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
         }
 
         private void FollowPlayer()
         {
-            //_headTransform.position = _cameraTransform.position;
+            _cameraTransform.position = _headTransform.position;
         }
     }
 }
