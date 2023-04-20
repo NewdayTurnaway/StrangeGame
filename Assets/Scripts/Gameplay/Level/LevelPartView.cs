@@ -1,3 +1,4 @@
+using Gameplay.Player;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,10 +20,12 @@ namespace Gameplay.Level
             _boxCollider.isTrigger = true;
         }
 
-		private void OnTriggerEnter(Collider other)
+		private void OnTriggerEnter(Collider collider)
 		{
-			//CheckCollider
-			PlayerInThisLevelPart.Invoke();
+			if(collider.TryGetComponent<PlayerView>(out _))
+			{
+				PlayerInThisLevelPart.Invoke();
+			}
 		}
 	} 
 }

@@ -20,6 +20,7 @@ namespace Gameplay.Services
 
         private Player.Player _player;
         private Transform _headTransform;
+        private Transform _orientationTransform;
 
         private float _xRotation;
         private float _yRotation;
@@ -69,6 +70,7 @@ namespace Gameplay.Services
         {
             _player = player;
             _headTransform = _player.PlayerView.Head;
+            _orientationTransform = _player.PlayerView.Orientation;
 
             _player.PlayerDestroyed += OnPlayerDestroyed;
             _updater.SubscribeToUpdate(RotateCamera);
@@ -94,6 +96,7 @@ namespace Gameplay.Services
         private void RotateCamera()
         {
             _cameraTransform.rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
+            _orientationTransform.rotation = Quaternion.Euler(0, _yRotation, 0);
             _headTransform.rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
         }
 

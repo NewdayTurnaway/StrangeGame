@@ -27,6 +27,8 @@ namespace Gameplay.Level
             _player = playerFactory.Create(CurrentLevelPart.LevelPartView.PlayerSpawnPoint.position);
             //_enemies = enemies;
 
+            _player.PlayerFell += WhenPlayerFell;
+
             foreach (var levelPart in _levelParts)
             {
                 levelPart.LevelPartChanged += OnLevelPartChanged;
@@ -35,6 +37,8 @@ namespace Gameplay.Level
 
         public void Dispose()
         {
+            _player.PlayerFell -= WhenPlayerFell;
+
             foreach (var levelPart in _levelParts)
             {
                 levelPart.LevelPartChanged -= OnLevelPartChanged;
@@ -44,6 +48,11 @@ namespace Gameplay.Level
 
             _player.Dispose();
             //_enemies.Dispose();
+        }
+
+        private void WhenPlayerFell()
+        {
+            _player.PlayerView.transform.position = CurrentLevelPart.LevelPartView.PlayerSpawnPoint.position;
         }
 
         private void OnLevelPartChanged(LevelPart levelPart)

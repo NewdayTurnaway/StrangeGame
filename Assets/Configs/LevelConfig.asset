@@ -17,4 +17,4 @@ MonoBehaviour:
   - {fileID: 7299703944243980519, guid: ddb78498825824348825bc7da9fb6139, type: 3}
   - {fileID: 346074656695051684, guid: b1d4d05c8f48786488c030dbb92d3f2a, type: 3}
   <LevelPartCount>k__BackingField: 10
-  <LevelPartSize>k__BackingField: 125
+  <LevelPartSize>k__BackingField: 110

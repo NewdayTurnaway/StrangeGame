@@ -13,3 +13,13 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   <PlayerView>k__BackingField: {fileID: 4345203701064322213, guid: 5c154986095b22649a16dcf2e9930f48, type: 3}
+  <MoveSpeed>k__BackingField: 10
+  <SpeedMiltiplier>k__BackingField: 10
+  <JumpForce>k__BackingField: 12
+  <JumpCooldown>k__BackingField: 0.25
+  <AirMiltiplier>k__BackingField: 0.4
+  <PlayerHeight>k__BackingField: 2
+  <GroundLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
+  <GroundDrag>k__BackingField: 5
