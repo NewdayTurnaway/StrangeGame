@@ -1,10 +1,11 @@
 using Services.SceneLoader;
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace Services
 {
-    public sealed class AmbientAudioService : IDisposable
+    public sealed class AmbientAudioService : IInitializable, IDisposable
     {
         private readonly AudioSource _ambient;
         private readonly SceneLoader.SceneLoader _sceneLoader;
@@ -14,6 +15,10 @@ namespace Services
             _ambient = ambient;
             _sceneLoader = sceneLoader;
             _sceneLoader.SceneLoaded += OnSceneLoaded;
+        }
+
+        public void Initialize()
+        {
             OnSceneLoaded(_sceneLoader.StartScene);
         }
 
