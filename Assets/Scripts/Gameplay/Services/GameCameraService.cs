@@ -10,7 +10,8 @@ namespace Gameplay.Services
 {
     public sealed class GameCameraService : IInitializable, IDisposable
     {
-        private const int DEFAULT_ANGLE = 90;
+        private const int MAX_ANGLE = 45;
+        private const int MIN_ANGLE = -45;
 
         private readonly Updater _updater;
         private readonly PlayerInput _playerInput;
@@ -90,7 +91,7 @@ namespace Gameplay.Services
         private void OnMouseYChange(float mouseY)
         {
             _xRotation -= mouseY * Time.deltaTime * _cameraConfig.SensitivityY;
-            _xRotation = Mathf.Clamp(_xRotation, -90, DEFAULT_ANGLE);
+            _xRotation = Mathf.Clamp(_xRotation, MIN_ANGLE, MAX_ANGLE);
         }
 
         private void RotateCamera()

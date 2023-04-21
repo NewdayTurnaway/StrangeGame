@@ -1,3 +1,4 @@
+using Gameplay.Unit;
 using Scriptables;
 using Services;
 using System;
@@ -12,15 +13,22 @@ namespace Gameplay.Player
         private readonly Updater _updater;
         private readonly PlayerConfig _playerConfig;
         private readonly PlayerMovementFactory _playerMovementFactory;
+        private readonly UnitAbilitiesFactory _unitAbilitiesFactory;
 
         public event Action<Player> PlayerCreated = _ => { };
 
-        public PlayerFactory(DiContainer diContainer, Updater updater, PlayerConfig playerConfig, PlayerMovementFactory playerMovementFactory)
+        public PlayerFactory(
+            DiContainer diContainer,
+            Updater updater,
+            PlayerConfig playerConfig,
+            PlayerMovementFactory playerMovementFactory,
+            UnitAbilitiesFactory unitAbilitiesFactory)
         {
             _diContainer = diContainer;
             _updater = updater;
             _playerConfig = playerConfig;
             _playerMovementFactory = playerMovementFactory;
+            _unitAbilitiesFactory = unitAbilitiesFactory;
         }
 
         public override Player Create(Vector3 position)
@@ -29,8 +37,9 @@ namespace Gameplay.Player
             view.transform.position = position;
             
             var movement = _playerMovementFactory.Create(view);
-            
-            var player = new Player(_updater, view, movement);
+            var unitAbilities = _unitAbilitiesFactory.Create(view, _playerConfig.UnitAbilitiesConfig);
+
+            var player = new Player(_updater, view, movement, unitAbilities);
             PlayerCreated(player);
             return player;
         }

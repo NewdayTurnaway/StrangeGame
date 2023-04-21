@@ -1,3 +1,4 @@
+using Gameplay.Unit;
 using Services;
 using System;
 
@@ -6,8 +7,10 @@ namespace Gameplay.Player
     public sealed class Player : IDisposable
     {
         private const int LOWER_HEIGHT_LIMIT = -100;
+
         private readonly Updater _updater;
         private readonly PlayerMovement _playerMovement;
+        private readonly UnitAbilities _unitAbilities;
 
         public PlayerView PlayerView { get; private set; }
 
@@ -17,12 +20,14 @@ namespace Gameplay.Player
         public Player(
             Updater updater,
             PlayerView playerView,
-            PlayerMovement playerMovement
+            PlayerMovement playerMovement,
+            UnitAbilities unitAbilities
             )
         {
             _updater = updater;
             PlayerView = playerView;
             _playerMovement = playerMovement;
+            _unitAbilities = unitAbilities;
 
             _updater.SubscribeToFixedUpdate(CheckHeight);
         }
@@ -34,6 +39,7 @@ namespace Gameplay.Player
             PlayerDestroyed.Invoke();
 
             _playerMovement.Dispose();
+            _unitAbilities.Dispose();
 
             UnityEngine.Object.Destroy(PlayerView.gameObject);
         }

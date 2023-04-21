@@ -23,7 +23,7 @@ namespace Gameplay.Player
 
         private Vector3 _moveDirection;
         private bool _isGrounded;
-        private bool _readyToJump;
+        private bool _readyToJump = true;
 
         public PlayerMovement(Updater updater, TimerFactory timerFactory, PlayerView playerView, PlayerInput playerInput, PlayerConfig playerConfig)
         {
@@ -34,6 +34,7 @@ namespace Gameplay.Player
             _playerConfig = playerConfig;
 
             _timer = timerFactory.Create(_playerConfig.JumpCooldown);
+            _timer.OnExpire += ResetJump;
 
             _rigidbody.freezeRotation = true;
 
@@ -47,6 +48,7 @@ namespace Gameplay.Player
 
         public void Dispose()
         {
+            _timer.OnExpire -= ResetJump;
             _timer.Dispose();
 
             _playerInput.VerticalAxisInput -= OnVerticalAxisChange;
@@ -83,16 +85,11 @@ namespace Gameplay.Player
         {
             GroundCheck();
             SpeedControl();
+        }
 
-            if (_readyToJump)
-            {
-                return;
-            }
-
-            if (_timer.IsExpired)
-            {
-                _readyToJump = true;
-            }
+        private void ResetJump()
+        {
+            _readyToJump = true;
         }
 
         private void Move()

@@ -20,5 +20,9 @@ namespace Scriptables
         [field: SerializeField, Min(0)] public float PlayerHeight { get; private set; } = 2f;
         [field: SerializeField] public LayerMask GroundLayer { get; private set; }
         [field: SerializeField, Min(0)] public float GroundDrag { get; private set; } = 5f;
+
+        [field: Space(20)]
+        [field: Header("Other")]
+        [field: SerializeField] public UnitAbilitiesConfig UnitAbilitiesConfig { get; private set; }
     }
 }

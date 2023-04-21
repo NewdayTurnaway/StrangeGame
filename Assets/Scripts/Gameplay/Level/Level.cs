@@ -1,6 +1,7 @@
 using Gameplay.Player;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Gameplay.Level
 {
@@ -53,6 +54,7 @@ namespace Gameplay.Level
         private void WhenPlayerFell()
         {
             _player.PlayerView.transform.position = CurrentLevelPart.LevelPartView.PlayerSpawnPoint.position;
+            _player.PlayerView.Rigidbody.velocity = Vector3.zero;
         }
 
         private void OnLevelPartChanged(LevelPart levelPart)

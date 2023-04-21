@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2184eddc4b5aaa64a86a7356966da989, type: 3}
+  m_Name: KnifeConfig
+  m_EditorClassIdentifier: 
+  <ProjectileView>k__BackingField: {fileID: 3321188035140729543, guid: 92802cb9ffe6faa479fd320ac77f4086, type: 3}
+  <ProjectileType>k__BackingField: 1
+  <Damage>k__BackingField: 10
+  <LifeTime>k__BackingField: 10
+  <IsDestroyedOnHit>k__BackingField: 0
+  <TotalThrows>k__BackingField: 10
+  <ThrowForce>k__BackingField: 120
+  <ThrowUpwardForce>k__BackingField: 0
+  <ThrowCooldown>k__BackingField: 0.1
+  <ExplosionRadius>k__BackingField: 0
+  <ExplosionForce>k__BackingField: 0

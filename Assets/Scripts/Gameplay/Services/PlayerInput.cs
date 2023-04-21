@@ -16,10 +16,10 @@ namespace Gameplay.Input
         private const KeyCode JUMP = KeyCode.Space;
         //private const KeyCode SIT_DOWN = KeyCode.LeftControl;
 
-        //private const KeyCode ATTACK_1 = KeyCode.Mouse0;
-        //private const KeyCode ATTACK_2 = KeyCode.Mouse1;
-        //private const KeyCode SKILL_1 = KeyCode.Q;
-        //private const KeyCode SKILL_2 = KeyCode.E;
+        private const KeyCode FIRST_ATTACK = KeyCode.Mouse0;
+        private const KeyCode SECOND_ATTACK = KeyCode.Mouse1;
+        private const KeyCode FIRST_ABILITY = KeyCode.Q;
+        private const KeyCode SECOND_ABILITY = KeyCode.E;
 
 
         public event Action<float> MouseXAxisInput = _ => { };
@@ -31,10 +31,10 @@ namespace Gameplay.Input
         public event Action<bool> JumpInput = _ => { };
         //public event Action<bool> SitDownInput = _ => { };
 
-        //public event Action<bool> Attack1Input = _ => { };
-        //public event Action<bool> Attack2Input = _ => { };
-        //public event Action<bool> Skill1Input = _ => { };
-        //public event Action<bool> Skill2Input = _ => { };
+        public event Action<bool> FirstAttackInput = _ => { };
+        public event Action<bool> SecondAttackInput = _ => { };
+        public event Action<bool> FirstAbilityInput = _ => { };
+        public event Action<bool> SecondAbilityInput = _ => { };
 
         public PlayerInput(Updater updater)
         {
@@ -45,6 +45,10 @@ namespace Gameplay.Input
             _updater.SubscribeToUpdate(CheckVerticaAxislInput);
             _updater.SubscribeToUpdate(CheckHorizontalAxisInput);
             _updater.SubscribeToUpdate(CheckJumpInput);
+            _updater.SubscribeToUpdate(CheckFirstAttackInput);
+            _updater.SubscribeToUpdate(CheckSecondAttackInput);
+            _updater.SubscribeToUpdate(CheckFirstAbilityInput);
+            _updater.SubscribeToUpdate(CheckSecondAbilityInput);
         }
 
         public void Dispose()
@@ -54,6 +58,10 @@ namespace Gameplay.Input
             _updater.UnsubscribeFromUpdate(CheckVerticaAxislInput);
             _updater.UnsubscribeFromUpdate(CheckHorizontalAxisInput);
             _updater.UnsubscribeFromUpdate(CheckJumpInput);
+            _updater.UnsubscribeFromUpdate(CheckFirstAttackInput);
+            _updater.UnsubscribeFromUpdate(CheckSecondAttackInput);
+            _updater.UnsubscribeFromUpdate(CheckFirstAbilityInput);
+            _updater.UnsubscribeFromUpdate(CheckSecondAbilityInput);
         }
         
         private void CheckMouseXAxisInput()
@@ -84,6 +92,30 @@ namespace Gameplay.Input
         {
             bool value = UnityEngine.Input.GetKey(JUMP);
             JumpInput(value);
+        }
+        
+        private void CheckFirstAttackInput()
+        {
+            bool value = UnityEngine.Input.GetKey(FIRST_ATTACK);
+            FirstAttackInput(value);
+        }
+        
+        private void CheckSecondAttackInput()
+        {
+            bool value = UnityEngine.Input.GetKey(SECOND_ATTACK);
+            SecondAttackInput(value);
+        }
+        
+        private void CheckFirstAbilityInput()
+        {
+            bool value = UnityEngine.Input.GetKeyDown(FIRST_ABILITY);
+            FirstAbilityInput(value);
+        }
+        
+        private void CheckSecondAbilityInput()
+        {
+            bool value = UnityEngine.Input.GetKeyDown(SECOND_ABILITY);
+            SecondAbilityInput(value);
         }
     }
 }

@@ -23,3 +23,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   <GroundDrag>k__BackingField: 5
+  <UnitAbilitiesConfig>k__BackingField: {fileID: 11400000, guid: 813f4e9fc7c39834f9e6e88bc5490f57, type: 2}
