@@ -22,6 +22,8 @@ namespace Gameplay.Input
         private const KeyCode FIRST_ABILITY = KeyCode.Q;
         private const KeyCode SECOND_ABILITY = KeyCode.E;
 
+        private bool _blockPauseInput;
+
         public bool IsPause { get; set; }
 
         public event Action<bool> PauseInput = _ => { };
@@ -69,8 +71,15 @@ namespace Gameplay.Input
             _updater.UnsubscribeFromUpdate(CheckSecondAbilityInput);
         }
 
+        public void SetActivePauseButton(bool active)
+        {
+            _blockPauseInput = !active;
+        }
+
         private void CheckPauseInput()
         {
+            if (_blockPauseInput) return;
+
             var value = UnityEngine.Input.GetKeyDown(PAUSE);
             if (value)
             {

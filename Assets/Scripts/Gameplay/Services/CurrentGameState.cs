@@ -1,9 +1,10 @@
 using Gameplay.Level;
 using System;
+using Zenject;
 
 namespace Gameplay.Services
 {
-    public sealed class CurrentGameState : IDisposable
+    public sealed class CurrentGameState : IInitializable,  IDisposable
     {
         private readonly LevelFactory _levelFactory;
         
@@ -11,16 +12,23 @@ namespace Gameplay.Services
         
         public int CurrentLevelNumber { get; private set; }
 
+        public event Action NextLevelAction = () => { };
+
         public CurrentGameState(LevelFactory levelFactory)
         {
             _levelFactory = levelFactory;
-            
-            CurrentLevelNumber = 1;
-            _currentLevel = levelFactory.Create(CurrentLevelNumber);
         }
 
-        private void StartNextLevel()
+        public void Initialize()
         {
+            CurrentLevelNumber = 1;
+            _currentLevel = _levelFactory.Create(CurrentLevelNumber);
+        }
+
+
+        public void StartNextLevel()
+        {
+            NextLevelAction.Invoke();
             _currentLevel.Dispose();
             CurrentLevelNumber += 1;
             _currentLevel = _levelFactory.Create(CurrentLevelNumber);

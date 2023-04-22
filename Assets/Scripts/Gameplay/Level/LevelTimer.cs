@@ -29,6 +29,19 @@ namespace Gameplay.Level
             _levelFactory.LevelCreated -= OnLevelCreated;
         }
 
+        public string GetTimerText()
+        {
+            var value = Timer.CurrentValue;
+
+            if(Timer == null)
+            {
+                value = 0;
+            }
+
+            var timeSpan = TimeSpan.FromSeconds(value);
+            return string.Format($"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}");
+        }
+
         private void OnTimerExpire()
         {
             TimeIsOver.Invoke();

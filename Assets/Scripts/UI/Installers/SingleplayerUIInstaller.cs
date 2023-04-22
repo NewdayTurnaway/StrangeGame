@@ -1,3 +1,5 @@
+using Gameplay.Level;
+using Services;
 using UI.Services;
 using UnityEngine;
 using Zenject;
@@ -10,13 +12,16 @@ namespace UI.Installers
         [field: SerializeField] public LevelProgressInfoView LevelProgressInfoView { get; private set; }
         [field: SerializeField] public PauseCanvasView PauseCanvasView { get; private set; }
         [field: SerializeField] public SettingsWindowCanvasView SettingsWindowCanvasView { get; private set; }
+        [field: SerializeField] public EndScreenCanvasView EndScreenCanvasView { get; private set; }
 
         public override void InstallBindings()
         {
             BindViews();
+            BindStatisticServiceFactory();
             BindHUD();
             BindPauseService();
             BindSettingsService();
+            BindEndScreenService();
         }
 
         private void BindViews()
@@ -44,6 +49,19 @@ namespace UI.Installers
                 .FromInstance(SettingsWindowCanvasView)
                 .AsSingle()
                 .NonLazy();
+            
+            Container
+                .Bind<EndScreenCanvasView>()
+                .FromInstance(EndScreenCanvasView)
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindStatisticServiceFactory()
+        {
+            Container
+                .BindFactory<LevelStatsView, StatisticService, StatisticServiceFactory>()
+                .AsSingle();
         }
         
         private void BindHUD()
@@ -71,6 +89,14 @@ namespace UI.Installers
         {
             Container
                 .BindInterfacesAndSelfTo<SettingsService>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindEndScreenService()
+        {
+            Container
+                .BindInterfacesAndSelfTo<EndScreenService>()
                 .AsSingle()
                 .NonLazy();
         }

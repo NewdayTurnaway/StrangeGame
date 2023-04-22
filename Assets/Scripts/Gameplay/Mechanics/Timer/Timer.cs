@@ -16,6 +16,7 @@ namespace Gameplay.Mechanics.Timer
 
         private float _maxValue;
         private float _currentValue;
+        private bool _isPause;
         
         public Timer(float value, Updater updater)
         {
@@ -39,6 +40,16 @@ namespace Gameplay.Mechanics.Timer
             _currentValue = _maxValue;
             OnStart.Invoke();
         }
+        
+        public void Pause()
+        {
+            _isPause = true;
+        }
+
+        public void Resume()
+        {
+            _isPause = false;
+        }
 
         public void SetMaxValue(float newMaxValue)
         {
@@ -58,6 +69,8 @@ namespace Gameplay.Mechanics.Timer
 
         private void Tick(float deltaTime)
         {
+            if(_isPause) return;
+
             switch (_currentValue)
             {
                 case 0:

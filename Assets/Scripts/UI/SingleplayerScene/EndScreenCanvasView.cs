@@ -5,17 +5,20 @@ using UnityEngine.UI;
 namespace UI
 {
     [RequireComponent(typeof(Canvas))]
-    public sealed class PauseCanvasView : MonoBehaviour
+    public sealed class EndScreenCanvasView : MonoBehaviour
     {
         [SerializeField] private Canvas _canvas;
-        [SerializeField] private Button _backButton;
-        [SerializeField] private Button _settingsButton;
+
+        [SerializeField] private RectTransform _levelCompleteTransform;
+        [SerializeField] private RectTransform _gameOverTransform;
+        [SerializeField] private Button _nextLevelButton;
+
         [SerializeField] private Button _quitButton;
         [SerializeField] private Button _exitButton;
 
         [field: SerializeField] public LevelStatsView LevelStatsView { get; private set; }
 
-        private UnityAction _settingsAction;
+        private UnityAction _nextLevelAction;
         private UnityAction _quitAction;
         private UnityAction _exitAction;
 
@@ -26,18 +29,31 @@ namespace UI
             _canvas ??= GetComponent<Canvas>();
         }
 
-        private void Start()
+        public void ShowLevelComplete()
         {
-            _backButton.onClick.AddListener(GoBack);
+            _levelCompleteTransform.gameObject.SetActive(true);
+            _gameOverTransform.gameObject.SetActive(false);
+            _nextLevelButton.gameObject.SetActive(true);
         }
 
-        public void Init(UnityAction settingsAction, UnityAction quitAction, UnityAction exitAction)
+        public void ShowGameOver()
         {
-            _settingsAction = settingsAction;
+            _levelCompleteTransform.gameObject.SetActive(false);
+            _gameOverTransform.gameObject.SetActive(true);
+            _nextLevelButton.gameObject.SetActive(false);
+        }
+
+        public void Init(UnityAction nextLevelAction, UnityAction quitAction, UnityAction exitAction)
+        {
+            _levelCompleteTransform.gameObject.SetActive(false);
+            _gameOverTransform.gameObject.SetActive(false);
+            _nextLevelButton.gameObject.SetActive(false);
+
+            _nextLevelAction = nextLevelAction;
             _quitAction = quitAction;
             _exitAction = exitAction;
 
-            _settingsButton.onClick.AddListener(_settingsAction);
+            _nextLevelButton.onClick.AddListener(_nextLevelAction);
             _quitButton.onClick.AddListener(_quitAction);
             _exitButton.onClick.AddListener(_exitAction);
         }
@@ -62,16 +78,9 @@ namespace UI
             }
         }
 
-        private void GoBack()
-        {
-            ShowCanvas(false);
-        }
-
         private void OnDestroy()
         {
-            _backButton.onClick.RemoveListener(GoBack);
-
-            if (_settingsAction != null) _settingsButton.onClick.RemoveListener(_settingsAction);
+            if (_nextLevelAction != null) _nextLevelButton.onClick.RemoveListener(_nextLevelAction);
             if (_quitAction != null) _quitButton.onClick.RemoveListener(_quitAction);
             if (_exitAction != null) _exitButton.onClick.RemoveListener(_exitAction);
         }
