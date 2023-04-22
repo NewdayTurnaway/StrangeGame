@@ -1,11 +1,9 @@
 using Gameplay.Input;
 using Gameplay.Mechanics.Meter;
 using Gameplay.Mechanics.Timer;
-using Gameplay.Player;
 using Gameplay.Services;
 using Gameplay.Unit;
 using Scriptables;
-using System;
 using Zenject;
 
 namespace Gameplay.Installers
@@ -17,6 +15,7 @@ namespace Gameplay.Installers
             InstallGameplayMechanics();
             InstallCurrentGameState();
             InstallPlayerInput();
+            InstallUnitHealthFactory();
             InstallUnitAbilities();
         }
 
@@ -47,6 +46,13 @@ namespace Gameplay.Installers
                 .NonLazy();
         }
 
+        private void InstallUnitHealthFactory()
+        {
+            Container
+                 .BindFactory<UnitView, float, UnitHealth, UnitHealthFactory>()
+                 .AsSingle();
+        }
+        
         private void InstallUnitAbilities()
         {
             Container

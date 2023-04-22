@@ -13,7 +13,6 @@ namespace Gameplay.Unit
         private readonly Camera _mainCamera;
         private readonly ProjectileFactory _projectileFactory;
 
-        private readonly Transform _unitTransform;
         private readonly Transform _throwPoint;
         private readonly ProjectileConfig _projectileConfig;
         private readonly Timer _timer;
@@ -22,6 +21,11 @@ namespace Gameplay.Unit
 
         private int _currentTotalThrows;
         private bool _readyToThrow = true;
+
+        public int CurrentTotalThrows => _currentTotalThrows;
+
+        public event Action TotalThrowsChanged = () => { };
+        public event Action AbilityAvailable = () => { };
 
         public ProjectileAbility(
             Camera mainCamera,
@@ -32,7 +36,6 @@ namespace Gameplay.Unit
         {
             _mainCamera = mainCamera;
             _projectileFactory = projectileFactory;
-            _unitTransform = unitView.transform;
             _throwPoint = unitView.ThrowPoint;
             _projectileConfig = projectileConfig;
             _timer = timer;
@@ -87,11 +90,13 @@ namespace Gameplay.Unit
             _projectileSpawnParams.ForceToAdd = forceToAdd;
             _projectileFactory.Create(_projectileSpawnParams);
             _currentTotalThrows--;
+            TotalThrowsChanged.Invoke();
         }
 
         private void ResetThrow()
         {
             _readyToThrow = true;
+            AbilityAvailable.Invoke();
         }
     }
 }

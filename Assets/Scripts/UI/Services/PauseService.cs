@@ -45,6 +45,7 @@ namespace UI.Services
 
         private void OpenPauseWindow(bool pauseInput)
         {
+            if (_settingsWindowCanvasView == null) return;
             if (_settingsWindowCanvasView.IsEnabled) return;
 
             if (pauseInput)

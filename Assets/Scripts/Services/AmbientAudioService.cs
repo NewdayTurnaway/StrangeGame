@@ -10,6 +10,8 @@ namespace Services
         private readonly AudioSource _ambient;
         private readonly SceneLoader.SceneLoader _sceneLoader;
 
+        private string _lastSceneName;
+
         public AmbientAudioService(AudioSource ambient, SceneLoader.SceneLoader sceneLoader)
         {
             _ambient = ambient;
@@ -38,6 +40,18 @@ namespace Services
                     _ambient.Stop();
                     break;
             }
+            
+            switch (_lastSceneName)
+            {
+                case SceneName.SINGLEPLAYER:
+                    _ambient.Play();
+                    break;
+                case SceneName.MULTIPLAYER:
+                    _ambient.Play();
+                    break;
+            }
+
+            _lastSceneName = sceneName;
         }
     }
 }

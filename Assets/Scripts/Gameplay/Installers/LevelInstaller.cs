@@ -14,6 +14,7 @@ namespace Gameplay.Installers
         {
             InstallLevelPart();
             InstallLevel();
+            InstallLevelTimer();
             //InstallLevelProgressService();
         }
 
@@ -40,6 +41,14 @@ namespace Gameplay.Installers
             Container
                 .BindFactory<int, Level.Level, LevelFactory>()
                 .AsSingle();
+        }
+        
+        private void InstallLevelTimer()
+        {
+            Container
+                .Bind<LevelTimer>()
+                .AsSingle()
+                .NonLazy();
         }
 
         //private void InstallLevelProgressService()

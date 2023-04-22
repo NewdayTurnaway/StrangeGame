@@ -13,8 +13,11 @@ namespace Gameplay.Unit
         private readonly UnitAbilitiesConfig _unitAbilitiesConfig;
         private readonly ProjectileAbilityFactory _projectileAbilityFactory;
 
-        private ProjectileAbility _firstProjectileAbility;
-        private ProjectileAbility _secondProjectileAbility;
+        private readonly ProjectileAbility _firstProjectileAbility;
+        private readonly ProjectileAbility _secondProjectileAbility;
+
+        public ProjectileAbility FirstProjectileAbility => _firstProjectileAbility;
+        public ProjectileAbility SecondProjectileAbility => _secondProjectileAbility;
 
         public UnitAbilities(
             TimerFactory timerFactory,
@@ -41,6 +44,8 @@ namespace Gameplay.Unit
                 _playerInput.SecondAbilityInput += OnSecondAbilityInput;
             }
         }
+
+        
 
         public void Dispose()
         {

@@ -7,6 +7,7 @@ namespace Scriptables
     public sealed class PlayerConfig : ScriptableObject
     {
         [field: SerializeField] public PlayerView PlayerView { get; private set; }
+        [field: SerializeField, Min(1)] public float Health { get; private set; } = 100f;
         
         [field: Header("Movement")]
         [field: SerializeField, Min(0)] public float MoveSpeed { get; private set; } = 10f;

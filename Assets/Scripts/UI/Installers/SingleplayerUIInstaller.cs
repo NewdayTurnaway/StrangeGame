@@ -6,18 +6,33 @@ namespace UI.Installers
 {
     public sealed class SingleplayerUIInstaller : MonoInstaller
     {
+        [field: SerializeField] public PlayerInfoView PlayerInfoView { get; private set; }
+        [field: SerializeField] public LevelProgressInfoView LevelProgressInfoView { get; private set; }
         [field: SerializeField] public PauseCanvasView PauseCanvasView { get; private set; }
         [field: SerializeField] public SettingsWindowCanvasView SettingsWindowCanvasView { get; private set; }
 
         public override void InstallBindings()
         {
-            BindCanvases();
+            BindViews();
+            BindHUD();
             BindPauseService();
             BindSettingsService();
         }
 
-        private void BindCanvases()
+        private void BindViews()
         {
+            Container
+                .Bind<PlayerInfoView>()
+                .FromInstance(PlayerInfoView)
+                .AsSingle()
+                .NonLazy();
+            
+            Container
+                .Bind<LevelProgressInfoView>()
+                .FromInstance(LevelProgressInfoView)
+                .AsSingle()
+                .NonLazy();
+            
             Container
                 .Bind<PauseCanvasView>()
                 .FromInstance(PauseCanvasView)
@@ -27,6 +42,19 @@ namespace UI.Installers
             Container
                 .Bind<SettingsWindowCanvasView>()
                 .FromInstance(SettingsWindowCanvasView)
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindHUD()
+        {
+            Container
+                .BindInterfacesAndSelfTo<PlayerInfoService>()
+                .AsSingle()
+                .NonLazy();
+            
+            Container
+                .BindInterfacesAndSelfTo<LevelProgressInfoService>()
                 .AsSingle()
                 .NonLazy();
         }
