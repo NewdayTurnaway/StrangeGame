@@ -1,4 +1,5 @@
 using Gameplay.Input;
+using Gameplay.Level;
 using Gameplay.Services;
 using Services;
 using System;
@@ -11,6 +12,7 @@ namespace UI.Services
         private readonly GameStateService _gameStateService;
         private readonly CurrentGameState _currentGameState;
         private readonly PlayerInput _playerInput;
+        private readonly CurrentLevelProgress _currentLevelProgress;
         private readonly EndScreenCanvasView _endScreenCanvasView;
         private readonly StatisticService _statisticService;
 
@@ -18,6 +20,7 @@ namespace UI.Services
             GameStateService gameStateService,
             CurrentGameState currentGameState,
             PlayerInput playerInput,
+            CurrentLevelProgress currentLevelProgress,
             StatisticServiceFactory statisticServiceFactory,
             EndScreenCanvasView endScreenCanvasView
             )
@@ -25,6 +28,7 @@ namespace UI.Services
             _gameStateService = gameStateService;
             _currentGameState = currentGameState;
             _playerInput = playerInput;
+            _currentLevelProgress = currentLevelProgress;
             _endScreenCanvasView = endScreenCanvasView;
             _statisticService = statisticServiceFactory.Create(_endScreenCanvasView.LevelStatsView);
         }
@@ -35,11 +39,13 @@ namespace UI.Services
             _endScreenCanvasView.Init(_currentGameState.StartNextLevel, _gameStateService.GoToMenu, _gameStateService.ExitGame);
 
             _currentGameState.NextLevelAction += OnNextLevelAction;
+            _currentLevelProgress.LevelComplete += OpenEndScreenWindow;
         }
 
         public void Dispose()
         {
             _currentGameState.NextLevelAction -= OnNextLevelAction;
+            _currentLevelProgress.LevelComplete -= OpenEndScreenWindow;
             _statisticService.Dispose();
         }
 
@@ -53,6 +59,7 @@ namespace UI.Services
         private void OpenEndScreenWindow(bool isLevelComplete)
         {
             _playerInput.SetActivePauseButton(false);
+            _playerInput.IsPause = true;
             _statisticService.PauseTimer();
 
             if (isLevelComplete)

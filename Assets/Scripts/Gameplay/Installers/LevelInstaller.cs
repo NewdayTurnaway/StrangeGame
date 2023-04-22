@@ -15,7 +15,7 @@ namespace Gameplay.Installers
             InstallLevelPart();
             InstallLevel();
             InstallLevelTimer();
-            //InstallLevelProgressService();
+            InstallLevelProgressService();
         }
 
         private void InstallLevelPart()
@@ -51,12 +51,12 @@ namespace Gameplay.Installers
                 .NonLazy();
         }
 
-        //private void InstallLevelProgressService()
-        //{
-        //    Container
-        //        .BindInterfacesAndSelfTo<CurrentLevelProgress>()
-        //        .AsSingle()
-        //        .NonLazy();
-        //}
+        private void InstallLevelProgressService()
+        {
+            Container
+                .BindInterfacesAndSelfTo<CurrentLevelProgress>()
+                .AsSingle()
+                .NonLazy();
+        }
     }
 }
