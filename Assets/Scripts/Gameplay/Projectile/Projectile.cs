@@ -77,8 +77,6 @@ namespace Gameplay.Projectile
 
         private void Explosion()
         {
-            //TODO ExplosionEffects
-
             var projectilePosition = _projectileView.transform.position;
             var objectsInRange = Physics.OverlapSphere(projectilePosition, _projectileInfo.ExplosionRadius);
 

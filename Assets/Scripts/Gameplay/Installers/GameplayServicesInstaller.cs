@@ -34,7 +34,7 @@ namespace Gameplay.Installers
         private void InstallCurrentGameState()
         {
             Container
-                .Bind<CurrentGameState>()
+                .BindInterfacesAndSelfTo<CurrentGameState>()
                 .AsSingle()
                 .NonLazy();
         }

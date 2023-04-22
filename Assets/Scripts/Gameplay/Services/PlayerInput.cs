@@ -13,14 +13,18 @@ namespace Gameplay.Input
         private const string VERTICAL = "Vertical";
         private const string HORIZONTAL = "Horizontal";
 
+        private const KeyCode PAUSE = KeyCode.Escape;
+        
         private const KeyCode JUMP = KeyCode.Space;
-        //private const KeyCode SIT_DOWN = KeyCode.LeftControl;
 
         private const KeyCode FIRST_ATTACK = KeyCode.Mouse0;
         private const KeyCode SECOND_ATTACK = KeyCode.Mouse1;
         private const KeyCode FIRST_ABILITY = KeyCode.Q;
         private const KeyCode SECOND_ABILITY = KeyCode.E;
 
+        public bool IsPause { get; set; }
+
+        public event Action<bool> PauseInput = _ => { };
 
         public event Action<float> MouseXAxisInput = _ => { };
         public event Action<float> MouseYAxisInput = _ => { };
@@ -29,7 +33,6 @@ namespace Gameplay.Input
         public event Action<float> HorizontalAxisInput = _ => { };
 
         public event Action<bool> JumpInput = _ => { };
-        //public event Action<bool> SitDownInput = _ => { };
 
         public event Action<bool> FirstAttackInput = _ => { };
         public event Action<bool> SecondAttackInput = _ => { };
@@ -40,6 +43,7 @@ namespace Gameplay.Input
         {
             _updater = updater;
             
+            _updater.SubscribeToUpdate(CheckPauseInput);
             _updater.SubscribeToUpdate(CheckMouseXAxisInput);
             _updater.SubscribeToUpdate(CheckMouseYAxisInput);
             _updater.SubscribeToUpdate(CheckVerticaAxislInput);
@@ -53,6 +57,7 @@ namespace Gameplay.Input
 
         public void Dispose()
         {
+            _updater.UnsubscribeFromUpdate(CheckPauseInput);
             _updater.UnsubscribeFromUpdate(CheckMouseXAxisInput);
             _updater.UnsubscribeFromUpdate(CheckMouseYAxisInput);
             _updater.UnsubscribeFromUpdate(CheckVerticaAxislInput);
@@ -63,58 +68,77 @@ namespace Gameplay.Input
             _updater.UnsubscribeFromUpdate(CheckFirstAbilityInput);
             _updater.UnsubscribeFromUpdate(CheckSecondAbilityInput);
         }
-        
+
+        private void CheckPauseInput()
+        {
+            var value = UnityEngine.Input.GetKeyDown(PAUSE);
+            if (value)
+            {
+                IsPause = !IsPause;
+            }
+            PauseInput(value);
+        }
+
         private void CheckMouseXAxisInput()
         {
-            float inputValue = UnityEngine.Input.GetAxis(MOUSE_X);
+            if (IsPause) return;
+            var inputValue = UnityEngine.Input.GetAxis(MOUSE_X);
             MouseXAxisInput(inputValue);
         }
         
         private void CheckMouseYAxisInput()
         {
-            float inputValue = UnityEngine.Input.GetAxis(MOUSE_Y);
+            if (IsPause) return;
+            var inputValue = UnityEngine.Input.GetAxis(MOUSE_Y);
             MouseYAxisInput(inputValue);
         }
 
         private void CheckVerticaAxislInput()
         {
-            float inputValue = UnityEngine.Input.GetAxisRaw(VERTICAL);
+            if (IsPause) return;
+            var inputValue = UnityEngine.Input.GetAxisRaw(VERTICAL);
             VerticalAxisInput(inputValue);
         }
 
         private void CheckHorizontalAxisInput()
         {
-            float inputValue = UnityEngine.Input.GetAxisRaw(HORIZONTAL);
+            if (IsPause) return;
+            var inputValue = UnityEngine.Input.GetAxisRaw(HORIZONTAL);
             HorizontalAxisInput(inputValue);
         }
 
         private void CheckJumpInput()
         {
-            bool value = UnityEngine.Input.GetKey(JUMP);
+            if (IsPause) return;
+            var value = UnityEngine.Input.GetKey(JUMP);
             JumpInput(value);
         }
         
         private void CheckFirstAttackInput()
         {
-            bool value = UnityEngine.Input.GetKey(FIRST_ATTACK);
+            if (IsPause) return;
+            var value = UnityEngine.Input.GetKey(FIRST_ATTACK);
             FirstAttackInput(value);
         }
         
         private void CheckSecondAttackInput()
         {
-            bool value = UnityEngine.Input.GetKey(SECOND_ATTACK);
+            if (IsPause) return;
+            var value = UnityEngine.Input.GetKey(SECOND_ATTACK);
             SecondAttackInput(value);
         }
         
         private void CheckFirstAbilityInput()
         {
-            bool value = UnityEngine.Input.GetKeyDown(FIRST_ABILITY);
+            if (IsPause) return;
+            var value = UnityEngine.Input.GetKeyDown(FIRST_ABILITY);
             FirstAbilityInput(value);
         }
         
         private void CheckSecondAbilityInput()
         {
-            bool value = UnityEngine.Input.GetKeyDown(SECOND_ABILITY);
+            if (IsPause) return;
+            var value = UnityEngine.Input.GetKeyDown(SECOND_ABILITY);
             SecondAbilityInput(value);
         }
     }

@@ -1,8 +1,9 @@
 using Gameplay.Level;
+using System;
 
 namespace Gameplay.Services
 {
-    public sealed class CurrentGameState
+    public sealed class CurrentGameState : IDisposable
     {
         private readonly LevelFactory _levelFactory;
         
@@ -23,6 +24,11 @@ namespace Gameplay.Services
             _currentLevel.Dispose();
             CurrentLevelNumber += 1;
             _currentLevel = _levelFactory.Create(CurrentLevelNumber);
+        }
+
+        public void Dispose()
+        {
+            _currentLevel.Dispose();
         }
     }
 }

@@ -83,6 +83,8 @@ namespace Gameplay.Player
 
         private void OnUpdate()
         {
+            if (_transform == null) return;
+
             GroundCheck();
             SpeedControl();
         }
@@ -94,6 +96,8 @@ namespace Gameplay.Player
 
         private void Move()
         {
+            if (_transform == null) return;
+
             _moveDirection = _transform.forward * _verticalInput + _transform.right * _horizontalInput;
             
             if (_isGrounded)

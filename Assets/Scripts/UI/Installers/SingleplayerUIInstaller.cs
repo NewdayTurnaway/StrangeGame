@@ -4,37 +4,23 @@ using Zenject;
 
 namespace UI.Installers
 {
-    public sealed class MainMenuUIInstaller : MonoInstaller
+    public sealed class SingleplayerUIInstaller : MonoInstaller
     {
-        [field: SerializeField] public MainMenuCanvasView MainMenuCanvasView { get; private set; }
-        [field: SerializeField] public MultiplayerView MultiplayerView { get; private set; }
-        [field: SerializeField] public RecordsWindowCanvasView RecordsWindowCanvasView { get; private set; }
+        [field: SerializeField] public PauseCanvasView PauseCanvasView { get; private set; }
         [field: SerializeField] public SettingsWindowCanvasView SettingsWindowCanvasView { get; private set; }
 
         public override void InstallBindings()
         {
             BindCanvases();
-            BindMainMenuService();
+            BindPauseService();
             BindSettingsService();
         }
 
         private void BindCanvases()
         {
             Container
-                .Bind<MainMenuCanvasView>()
-                .FromInstance(MainMenuCanvasView)
-                .AsSingle()
-                .NonLazy();
-            
-            Container
-                .Bind<MultiplayerView>()
-                .FromInstance(MultiplayerView)
-                .AsSingle()
-                .NonLazy();
-            
-            Container
-                .Bind<RecordsWindowCanvasView>()
-                .FromInstance(RecordsWindowCanvasView)
+                .Bind<PauseCanvasView>()
+                .FromInstance(PauseCanvasView)
                 .AsSingle()
                 .NonLazy();
             
@@ -45,10 +31,10 @@ namespace UI.Installers
                 .NonLazy();
         }
         
-        private void BindMainMenuService()
+        private void BindPauseService()
         {
             Container
-                .BindInterfacesAndSelfTo<MainMenuService>()
+                .BindInterfacesAndSelfTo<PauseService>()
                 .AsSingle()
                 .NonLazy();
         }

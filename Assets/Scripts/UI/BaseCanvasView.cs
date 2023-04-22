@@ -7,6 +7,8 @@ namespace UI
     {
         [SerializeField] private Canvas _canvas;
 
+        public bool IsEnabled => _canvas.enabled;
+
         public void ShowCanvas(bool isShown)
         {
             _canvas.enabled = isShown;
