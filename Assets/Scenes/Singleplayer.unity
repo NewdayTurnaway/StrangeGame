@@ -178,6 +178,7 @@ Transform:
   - {fileID: 865747345}
   - {fileID: 513950375}
   - {fileID: 1755537893}
+  - {fileID: 716655908}
   - {fileID: 705148794}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -363,7 +364,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 463924095}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &705148795
 MonoBehaviour:
@@ -473,6 +474,51 @@ Transform:
   m_Father: {fileID: 1016976255}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &716655907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 716655908}
+  - component: {fileID: 716655909}
+  m_Layer: 0
+  m_Name: EnemyInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &716655908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716655907}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 463924095}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &716655909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716655907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef7b14034f28e88489b7d8ed22b14a97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EnemyConfig>k__BackingField: {fileID: 11400000, guid: 1df8a98dd508aff4a90051d5b07216f9, type: 2}
 --- !u!1 &778523574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,6 +1908,7 @@ MonoBehaviour:
   - {fileID: 865747346}
   - {fileID: 513950376}
   - {fileID: 1755537894}
+  - {fileID: 716655909}
   - {fileID: 705148795}
   _installerPrefabs: []
   _autoRun: 1

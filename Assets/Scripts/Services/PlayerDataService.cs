@@ -14,11 +14,18 @@ namespace Services
         public string PlayerPassword { get; private set; }
         public bool IsLoginSuccess { get; private set; }
 
+        public int RecordScore { get; private set; }
+
         public PlayerDataService()
         {
             PlayerName = PlayerPrefs.GetString(PLAYER_NAME);
             PlayerEmail = PlayerPrefs.GetString(PLAYER_EMAIL);
             PlayerPassword = PlayerPrefs.GetString(PLAYER_PASSWORD);
+        }
+
+        public void UpdateRecordScore(int newRecord)
+        {
+            RecordScore = newRecord;
         }
 
         public void ChangeLoginStatus(bool status)

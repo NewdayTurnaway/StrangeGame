@@ -2,36 +2,31 @@ using Gameplay.Unit;
 using Services;
 using System;
 
-namespace Gameplay.Player
+namespace Gameplay.Enemy
 {
-    public sealed class Player : IDisposable
+    public sealed class Enemy : IDisposable
     {
         private const int LOWER_HEIGHT_LIMIT = -100;
 
         private readonly Updater _updater;
-        private readonly PlayerMovement _playerMovement;
+        //UnitMovement
         private readonly UnitHealth _unitHealth;
         private readonly UnitAbilities _unitAbilities;
 
-        public PlayerView PlayerView { get; }
-
-        public UnitAbilities UnitAbilities => _unitAbilities;
+        public EnemyView EnemyView { get; }
         public UnitHealth UnitHealth => _unitHealth;
 
-        public event Action PlayerDestroyed = () => { };
-        public event Action PlayerFell = () => { };
+        public event Action<Enemy> EnemyDestroyed = _ => { };
 
-        public Player(
+        public Enemy(
             Updater updater,
-            PlayerView playerView,
-            PlayerMovement playerMovement,
+            EnemyView enemyView,
             UnitHealth unitHealth,
             UnitAbilities unitAbilities
             )
         {
             _updater = updater;
-            PlayerView = playerView;
-            _playerMovement = playerMovement;
+            EnemyView = enemyView;
             _unitHealth = unitHealth;
             _unitAbilities = unitAbilities;
 
@@ -44,20 +39,19 @@ namespace Gameplay.Player
             _unitHealth.HealthReachedZero -= OnDeath;
             _updater.UnsubscribeFromFixedUpdate(CheckHeight);
 
-            PlayerDestroyed.Invoke();
+            EnemyDestroyed.Invoke(this);
 
-            _playerMovement.Dispose();
             _unitAbilities.Dispose();
 
-            if(PlayerView != null) UnityEngine.Object.Destroy(PlayerView.gameObject);
+            if(EnemyView != null) UnityEngine.Object.Destroy(EnemyView.gameObject);
         }
 
         private void CheckHeight()
         {
-            if (PlayerView == null) return;
-            if (PlayerView.transform.position.y <= LOWER_HEIGHT_LIMIT)
+            if (EnemyView == null) return;
+            if (EnemyView.transform.position.y <= LOWER_HEIGHT_LIMIT)
             {
-                PlayerFell.Invoke();
+                OnDeath();
             }
         }
 

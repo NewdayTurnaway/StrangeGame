@@ -46,6 +46,7 @@ namespace Gameplay.Level
 
         private void WhenPlayerFell()
         {
+            _player.UnitHealth.TakeDamage(25);
             _player.PlayerView.transform.position = CurrentLevelPart.LevelPartView.PlayerSpawnPoint.position;
             _player.PlayerView.Rigidbody.velocity = Vector3.zero;
         }

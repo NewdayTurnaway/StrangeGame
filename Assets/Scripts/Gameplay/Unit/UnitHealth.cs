@@ -26,7 +26,7 @@ namespace Gameplay.Unit
             _unitView.DamageTaken += TakeDamage;
         }
 
-        private void TakeDamage(float damage)
+        public void TakeDamage(float damage)
         {
             Health -= damage;
 

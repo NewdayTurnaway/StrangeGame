@@ -36,12 +36,15 @@ namespace Gameplay.Projectile
 
             if(_projectileInfo.ProjectileType == ProjectileType.Explosive)
             {
-                Explosion();
-                Object.Destroy(_projectileView.gameObject, 0.1f);
+                if (_projectileView != null)
+                {
+                    Explosion();
+                    Object.Destroy(_projectileView.gameObject, 0.1f);
+                }
             }
             else
             {
-                Object.Destroy(_projectileView.gameObject);
+                if (_projectileView != null) Object.Destroy(_projectileView.gameObject);
             }
         }
 
