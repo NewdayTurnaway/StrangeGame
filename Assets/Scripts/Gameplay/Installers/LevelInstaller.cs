@@ -46,7 +46,7 @@ namespace Gameplay.Installers
         private void InstallLevelTimer()
         {
             Container
-                .Bind<LevelTimer>()
+                .BindInterfacesAndSelfTo<LevelTimer>()
                 .AsSingle()
                 .NonLazy();
         }

@@ -23,7 +23,7 @@ namespace Gameplay.Enemy
 
         private Vector3 _moveDirection;
         private bool _isGrounded;
-        private bool _readyToJump = true;
+        private bool _readyToJump;
 
         public EnemyMovement(Updater updater, TimerFactory timerFactory, EnemyView enemyView, EnemyInput input, EnemyConfig enemyConfig)
         {
@@ -35,6 +35,7 @@ namespace Gameplay.Enemy
 
             _timer = timerFactory.Create(_enemyConfig.JumpCooldown);
             _timer.OnExpire += ResetJump;
+            _timer.Start();
 
             _rigidbody.freezeRotation = true;
 
@@ -112,7 +113,7 @@ namespace Gameplay.Enemy
 
         private void GroundCheck()
         {
-            _isGrounded = Physics.Raycast(_transform.position,Vector3.down, _enemyConfig.PlayerHeight * 0.5f + RAYCAST_OFFSET, _enemyConfig.GroundLayer);
+            _isGrounded = Physics.Raycast(_transform.position,Vector3.down, _enemyConfig.EnemyHeight * 0.5f + RAYCAST_OFFSET, _enemyConfig.GroundLayer);
 
             if (_isGrounded)
             {

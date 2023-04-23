@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2184eddc4b5aaa64a86a7356966da989, type: 3}
-  m_Name: KnifeConfig
+  m_Name: EnemyKnifeConfig
   m_EditorClassIdentifier: 
   <ProjectileView>k__BackingField: {fileID: 3321188035140729543, guid: 92802cb9ffe6faa479fd320ac77f4086, type: 3}
   <ProjectileType>k__BackingField: 1
-  <Damage>k__BackingField: 25
+  <Damage>k__BackingField: 5
   <LifeTime>k__BackingField: 10
   <IsDestroyedOnHit>k__BackingField: 0
-  <TotalThrows>k__BackingField: 99
-  <ThrowForce>k__BackingField: 120
+  <TotalThrows>k__BackingField: 100
+  <ThrowForce>k__BackingField: 40
   <ThrowUpwardForce>k__BackingField: 0
-  <ThrowCooldown>k__BackingField: 0.1
+  <ThrowCooldown>k__BackingField: 1.7
   <ExplosionRadius>k__BackingField: 0
   <ExplosionForce>k__BackingField: 0

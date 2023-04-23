@@ -44,7 +44,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3374788929793735553}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: abc7f124a4ce302418d52aa7a785fa15, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4716642681848679033}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ThrowPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 7447084579417608007}
   - component: {fileID: 6150904804840931892}
   - component: {fileID: 7072258349290428375}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,6 +337,10 @@ PrefabInstance:
     - target: {fileID: 5902937030921915390, guid: 84134fc4d1e0a624cb8eb9bbc0c23db5, type: 3}
       propertyPath: m_Name
       value: TacticalKnife_Gold
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902937030921915390, guid: 84134fc4d1e0a624cb8eb9bbc0c23db5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6530396862257156420, guid: 84134fc4d1e0a624cb8eb9bbc0c23db5, type: 3}
       propertyPath: m_RootOrder

@@ -1,3 +1,4 @@
+using Gameplay.Input;
 using Gameplay.Unit;
 using Services;
 using System;
@@ -9,6 +10,8 @@ namespace Gameplay.Enemy
         private const int LOWER_HEIGHT_LIMIT = -100;
 
         private readonly Updater _updater;
+        private readonly EnemyInput _enemyInput;
+        private readonly EnemyBehaviourSwitcher _enemyBehaviourSwitcher;
         private readonly EnemyMovement _enemyMovement;
         private readonly UnitHealth _unitHealth;
         private readonly UnitAbilities _unitAbilities;
@@ -21,6 +24,8 @@ namespace Gameplay.Enemy
         public Enemy(
             Updater updater,
             EnemyView enemyView,
+            EnemyInput enemyInput,
+            EnemyBehaviourSwitcher enemyBehaviourSwitcher,
             EnemyMovement enemyMovement,
             UnitHealth unitHealth,
             UnitAbilities unitAbilities
@@ -28,10 +33,11 @@ namespace Gameplay.Enemy
         {
             _updater = updater;
             EnemyView = enemyView;
+            _enemyInput = enemyInput;
+            _enemyBehaviourSwitcher = enemyBehaviourSwitcher;
             _enemyMovement = enemyMovement;
             _unitHealth = unitHealth;
             _unitAbilities = unitAbilities;
-
             _unitHealth.HealthReachedZero += OnDeath;
             _updater.SubscribeToFixedUpdate(CheckHeight);
         }
@@ -43,6 +49,7 @@ namespace Gameplay.Enemy
 
             EnemyDestroyed.Invoke(this);
 
+            _enemyBehaviourSwitcher.Dispose();
             _enemyMovement.Dispose();
             _unitAbilities.Dispose();
 
@@ -60,6 +67,7 @@ namespace Gameplay.Enemy
 
         private void OnDeath()
         {
+            _enemyInput.IsPause = true;
             Dispose();
         }
     }

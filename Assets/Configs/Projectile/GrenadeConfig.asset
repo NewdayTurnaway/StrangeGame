@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ProjectileView>k__BackingField: {fileID: 5355612377585860984, guid: 8664e10fe2a668440bc5bc771099338f, type: 3}
   <ProjectileType>k__BackingField: 2
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 50
   <LifeTime>k__BackingField: 10
   <IsDestroyedOnHit>k__BackingField: 1
   <TotalThrows>k__BackingField: 3

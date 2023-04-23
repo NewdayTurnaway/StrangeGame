@@ -26,7 +26,7 @@ namespace Gameplay.Level
             var enemies = new List<Enemy.Enemy>();
             foreach (var spawnPoint in view.EnemySpawnPoints)
             {
-                var enemy = _enemyFactory.Create(spawnPoint.position);
+                var enemy = _enemyFactory.Create(spawnPoint.position, view);
                 enemies.Add(enemy);
             }
 

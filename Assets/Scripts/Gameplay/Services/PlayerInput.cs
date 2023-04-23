@@ -18,10 +18,10 @@ namespace Gameplay.Input
         
         private const KeyCode JUMP = KeyCode.Space;
 
-        private const KeyCode FIRST_ATTACK = KeyCode.Mouse0;
-        private const KeyCode SECOND_ATTACK = KeyCode.Mouse1;
+        //private const KeyCode FIRST_ATTACK = KeyCode.Mouse0;
+        //private const KeyCode SECOND_ATTACK = KeyCode.Mouse1;
         private const KeyCode FIRST_ABILITY = KeyCode.Q;
-        private const KeyCode SECOND_ABILITY = KeyCode.E;
+        private const KeyCode SECOND_ABILITY = KeyCode.Mouse0;
 
         private bool _blockPauseInput;
 
@@ -37,8 +37,8 @@ namespace Gameplay.Input
 
         public event Action<bool> JumpInput = _ => { };
 
-        public event Action<bool> FirstAttackInput = _ => { };
-        public event Action<bool> SecondAttackInput = _ => { };
+        //public event Action<bool> FirstAttackInput = _ => { };
+        //public event Action<bool> SecondAttackInput = _ => { };
         public event Action<bool> FirstAbilityInput = _ => { };
         public event Action<bool> SecondAbilityInput = _ => { };
 
@@ -52,8 +52,8 @@ namespace Gameplay.Input
             _updater.SubscribeToUpdate(CheckVerticaAxislInput);
             _updater.SubscribeToUpdate(CheckHorizontalAxisInput);
             _updater.SubscribeToUpdate(CheckJumpInput);
-            _updater.SubscribeToUpdate(CheckFirstAttackInput);
-            _updater.SubscribeToUpdate(CheckSecondAttackInput);
+            //_updater.SubscribeToUpdate(CheckFirstAttackInput);
+            //_updater.SubscribeToUpdate(CheckSecondAttackInput);
             _updater.SubscribeToUpdate(CheckFirstAbilityInput);
             _updater.SubscribeToUpdate(CheckSecondAbilityInput);
         }
@@ -66,8 +66,8 @@ namespace Gameplay.Input
             _updater.UnsubscribeFromUpdate(CheckVerticaAxislInput);
             _updater.UnsubscribeFromUpdate(CheckHorizontalAxisInput);
             _updater.UnsubscribeFromUpdate(CheckJumpInput);
-            _updater.UnsubscribeFromUpdate(CheckFirstAttackInput);
-            _updater.UnsubscribeFromUpdate(CheckSecondAttackInput);
+            //_updater.UnsubscribeFromUpdate(CheckFirstAttackInput);
+            //_updater.UnsubscribeFromUpdate(CheckSecondAttackInput);
             _updater.UnsubscribeFromUpdate(CheckFirstAbilityInput);
             _updater.UnsubscribeFromUpdate(CheckSecondAbilityInput);
         }
@@ -124,19 +124,19 @@ namespace Gameplay.Input
             JumpInput(value);
         }
         
-        private void CheckFirstAttackInput()
-        {
-            if (IsPause) return;
-            var value = UnityEngine.Input.GetKey(FIRST_ATTACK);
-            FirstAttackInput(value);
-        }
+        //private void CheckFirstAttackInput()
+        //{
+        //    if (IsPause) return;
+        //    var value = UnityEngine.Input.GetKey(FIRST_ATTACK);
+        //    FirstAttackInput(value);
+        //}
         
-        private void CheckSecondAttackInput()
-        {
-            if (IsPause) return;
-            var value = UnityEngine.Input.GetKey(SECOND_ATTACK);
-            SecondAttackInput(value);
-        }
+        //private void CheckSecondAttackInput()
+        //{
+        //    if (IsPause) return;
+        //    var value = UnityEngine.Input.GetKey(SECOND_ATTACK);
+        //    SecondAttackInput(value);
+        //}
         
         private void CheckFirstAbilityInput()
         {

@@ -39,6 +39,7 @@ namespace Gameplay.Level
         {
             enemy.EnemyDestroyed -= OnEnemyDestroyed;
             Enemies.Remove(enemy);
+            enemy.Dispose();
         }
 
         private void PlayerChangeLevelPart()

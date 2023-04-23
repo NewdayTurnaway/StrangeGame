@@ -891,7 +891,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095754055633496362}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: abc7f124a4ce302418d52aa7a785fa15, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -988,7 +988,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100052392603661450}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: abc7f124a4ce302418d52aa7a785fa15, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2731,7 +2731,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3590872589803924470}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: abc7f124a4ce302418d52aa7a785fa15, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -4727,7 +4727,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 20, z: 1.1}
+  m_Size: {x: 1, y: 50, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6840526216667253706
 MonoBehaviour:
@@ -4741,7 +4741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007537022546c9445be3cb16648812e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boxCollider: {fileID: 5053486454927323611}
+  <LevelPartCollider>k__BackingField: {fileID: 5053486454927323611}
   <PlayerSpawnPoint>k__BackingField: {fileID: 6303733186418148296}
   <EnemySpawnPoints>k__BackingField:
   - {fileID: 3373497030215052425}
@@ -5927,7 +5927,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7503007782115112034}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: abc7f124a4ce302418d52aa7a785fa15, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

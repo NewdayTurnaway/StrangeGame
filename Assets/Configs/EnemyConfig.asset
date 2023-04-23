@@ -14,4 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EnemyView>k__BackingField: {fileID: 6957004089539974628, guid: f8eff85d76e754b4bb4876910468e863, type: 3}
   <Health>k__BackingField: 100
-  <UnitAbilitiesConfig>k__BackingField: {fileID: 11400000, guid: 813f4e9fc7c39834f9e6e88bc5490f57, type: 2}
+  <RandomDirectionCooldown>k__BackingField: 3
+  <DirectionLenght>k__BackingField: 20
+  <OptionalCooldown>k__BackingField: 2
+  <StopDistance>k__BackingField: 10
+  <MoveSpeed>k__BackingField: 10
+  <SpeedMiltiplier>k__BackingField: 10
+  <JumpForce>k__BackingField: 8
+  <JumpCooldown>k__BackingField: 5
+  <AirMiltiplier>k__BackingField: 0.4
+  <EnemyHeight>k__BackingField: 2
+  <GroundLayer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 64
+  <GroundDrag>k__BackingField: 5
+  <UnitAbilitiesConfig>k__BackingField: {fileID: 11400000, guid: e2ed1b83e83d6ac4d984f205a930e858, type: 2}

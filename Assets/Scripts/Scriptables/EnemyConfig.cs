@@ -9,6 +9,13 @@ namespace Scriptables
         [field: SerializeField] public EnemyView EnemyView { get; private set; }
         [field: SerializeField, Min(1)] public float Health { get; private set; } = 100f;
 
+        [field: Header("Behaviour")]
+        [field: SerializeField, Min(0)] public float RandomDirectionCooldown { get; private set; } = 3f;
+        [field: SerializeField, Min(0)] public float DirectionLenght { get; private set; } = 20f;
+        [field: SerializeField, Min(0)] public float OptionalCooldown { get; private set; } = 2f;
+        [field: SerializeField, Min(0)] public float StopDistance { get; private set; } = 10f;
+        
+        
         [field: Header("Movement")]
         [field: SerializeField, Min(0)] public float MoveSpeed { get; private set; } = 10f;
         [field: SerializeField, Min(0)] public float SpeedMiltiplier { get; private set; } = 10f;
@@ -18,7 +25,7 @@ namespace Scriptables
 
 
         [field: Header("Ground Check")]
-        [field: SerializeField, Min(0)] public float PlayerHeight { get; private set; } = 2f;
+        [field: SerializeField, Min(0)] public float EnemyHeight { get; private set; } = 2f;
         [field: SerializeField] public LayerMask GroundLayer { get; private set; }
         [field: SerializeField, Min(0)] public float GroundDrag { get; private set; } = 5f;
 

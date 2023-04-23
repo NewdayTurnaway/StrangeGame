@@ -1,5 +1,6 @@
 using Gameplay.Enemy;
 using Gameplay.Input;
+using Gameplay.Level;
 using Gameplay.Player;
 using Scriptables;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Gameplay.Installers
         {
             InstallEnemyInput();
             InstallEnemyMovement();
+            InstallEnemyBehaviour();
             InstallEnemy();
             InstallEnemyCounter();
         }
@@ -22,15 +24,29 @@ namespace Gameplay.Installers
         private void InstallEnemyInput()
         {
             Container
-                .Bind<EnemyInput>()
-                .AsSingle()
-                .NonLazy();
+                 .BindFactory<EnemyInput, EnemyInputFactory>()
+                 .AsSingle();
         }
 
         private void InstallEnemyMovement()
         {
             Container
-                 .BindFactory<EnemyView, EnemyMovement, EnemyMovementFactory>()
+                 .BindFactory<EnemyView, EnemyInput, EnemyMovement, EnemyMovementFactory>()
+                 .AsSingle();
+        }
+        
+        private void InstallEnemyBehaviour()
+        {
+            Container
+                 .BindFactory<EnemyView, EnemyInput, LevelPartView, EnemyConfig, EnemyPassiveRoamingBehaviour, EnemyPassiveRoamingBehaviourFactory>()
+                 .AsSingle();
+            
+            Container
+                 .BindFactory<EnemyView, EnemyInput, LevelPartView, EnemyConfig, PlayerView, EnemyInCombatBehaviour, EnemyInCombatBehaviourFactory>()
+                 .AsSingle();
+            
+            Container
+                 .BindFactory<EnemyView, EnemyInput, LevelPartView, EnemyBehaviourSwitcher, EnemyBehaviourSwitcherFactory>()
                  .AsSingle();
         }
 
@@ -43,14 +59,14 @@ namespace Gameplay.Installers
                 .NonLazy();
 
             Container
-                .BindFactory<Vector3, Enemy.Enemy, EnemyFactory>()
+                .BindFactory<Vector3, LevelPartView, Enemy.Enemy, EnemyFactory>()
                 .AsSingle();
         }
         
         private void InstallEnemyCounter()
         {
             Container
-                .Bind<EnemyCounter>()
+                .BindInterfacesAndSelfTo<EnemyCounter>()
                 .AsSingle()
                 .NonLazy();
         }

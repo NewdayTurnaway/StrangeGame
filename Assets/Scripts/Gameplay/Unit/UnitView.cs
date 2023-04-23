@@ -10,6 +10,8 @@ namespace Gameplay.Unit
 
         [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
         [field: SerializeField] public Transform ThrowPoint { get; private set; }
+        [field: SerializeField] public Transform Head { get; private set; }
+        [field: SerializeField] public Transform Orientation { get; private set; }
 
         public event Action<float> DamageTaken = _ => { };
 

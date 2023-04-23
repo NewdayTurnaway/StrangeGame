@@ -12,8 +12,8 @@ namespace Gameplay.Unit
 
         public event Action<bool> JumpInput;
 
-        public event Action<bool> FirstAttackInput;
-        public event Action<bool> SecondAttackInput;
+        //public event Action<bool> FirstAttackInput;
+        //public event Action<bool> SecondAttackInput;
         public event Action<bool> FirstAbilityInput;
         public event Action<bool> SecondAbilityInput;
     }

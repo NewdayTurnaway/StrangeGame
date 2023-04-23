@@ -1,8 +1,10 @@
+using Gameplay.Enemy;
 using Gameplay.Mechanics.Timer;
 using Gameplay.Projectile;
 using Scriptables;
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Gameplay.Unit
 {
@@ -10,7 +12,7 @@ namespace Gameplay.Unit
     {
         private const float RAYCAST_MAX_DISTANCE = 500f;
 
-        private readonly Camera _mainCamera;
+        private readonly Transform _headTransform;
         private readonly ProjectileFactory _projectileFactory;
 
         private readonly Transform _throwPoint;
@@ -21,6 +23,7 @@ namespace Gameplay.Unit
 
         private int _currentTotalThrows;
         private bool _readyToThrow = true;
+        private bool _notAccurateAim;
 
         public int CurrentTotalThrows => _currentTotalThrows;
 
@@ -28,17 +31,21 @@ namespace Gameplay.Unit
         public event Action AbilityAvailable = () => { };
 
         public ProjectileAbility(
-            Camera mainCamera,
             ProjectileFactory projectileFactory,
             UnitView unitView,
             ProjectileConfig projectileConfig,
             Timer timer)
         {
-            _mainCamera = mainCamera;
+            _headTransform = unitView.Head.transform;
             _projectileFactory = projectileFactory;
             _throwPoint = unitView.ThrowPoint;
             _projectileConfig = projectileConfig;
             _timer = timer;
+
+            if(unitView is EnemyView)
+            {
+                _notAccurateAim = true;
+            }
             
             _timer.OnExpire += ResetThrow;
 
@@ -54,7 +61,7 @@ namespace Gameplay.Unit
             _projectileSpawnParams = new(
                 _projectileConfig.ProjectileView,
                 _throwPoint,
-                _mainCamera.transform,
+                _headTransform,
                 projectileInfo
                 );
 
@@ -79,14 +86,22 @@ namespace Gameplay.Unit
 
         private void Throw()
         {
-            var forceDirection = _mainCamera.transform.forward;
+            var forceDirection = _headTransform.forward;
 
-            if(Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out var hit, RAYCAST_MAX_DISTANCE))
+            if(Physics.Raycast(_headTransform.position, _headTransform.forward, out var hit, RAYCAST_MAX_DISTANCE))
             {
                 forceDirection = (hit.point - _throwPoint.position).normalized;
             }
 
+            if (_notAccurateAim)
+            {
+                forceDirection.x += Random.Range(0, 0.2f);
+                forceDirection.y += Random.Range(0, 0.1f);
+            }
+            
             var forceToAdd = forceDirection * _projectileConfig.ThrowForce + _throwPoint.up * _projectileConfig.ThrowUpwardForce;
+
+
             _projectileSpawnParams.ForceToAdd = forceToAdd;
             _projectileFactory.Create(_projectileSpawnParams);
             _currentTotalThrows--;
