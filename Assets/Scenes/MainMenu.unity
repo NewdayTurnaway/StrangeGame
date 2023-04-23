@@ -298,10 +298,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7870304743328693876, guid: a5ad8deed0fd66141999dac6324b3708, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7870304743328693878, guid: a5ad8deed0fd66141999dac6324b3708, type: 3}
       propertyPath: m_Name
       value: CreateRoomWindow
@@ -1002,10 +998,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6280074531396753742, guid: 7ae4a4cdd69c36245af7e7ce6bd6c599, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8109874226025626283, guid: 7ae4a4cdd69c36245af7e7ce6bd6c599, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -6622,10 +6614,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4048438757942921141, guid: b84a149a4af1e234d8b57d8062f6b380, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4048438758084025546, guid: b84a149a4af1e234d8b57d8062f6b380, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7087,10 +7075,6 @@ PrefabInstance:
     - target: {fileID: 5098279547904362491, guid: 928cda4d38641df41865d73d222512e0, type: 3}
       propertyPath: m_Name
       value: LobbyWindow
-      objectReference: {fileID: 0}
-    - target: {fileID: 5098279547904362494, guid: 928cda4d38641df41865d73d222512e0, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5098279547918094838, guid: 928cda4d38641df41865d73d222512e0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8060,6 +8044,10 @@ PrefabInstance:
     - target: {fileID: 5589508478953455861, guid: 1aad7f47897e63a46958c77f89ad55a9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5589508478953455863, guid: 1aad7f47897e63a46958c77f89ad55a9, type: 3}
+      propertyPath: m_text
+      value: Low
       objectReference: {fileID: 0}
     - target: {fileID: 5589508478976635992, guid: 1aad7f47897e63a46958c77f89ad55a9, type: 3}
       propertyPath: m_AnchorMax.y

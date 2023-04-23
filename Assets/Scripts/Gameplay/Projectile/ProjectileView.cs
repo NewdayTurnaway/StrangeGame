@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Gameplay.Projectile
 {
-    [RequireComponent(typeof(Rigidbody), typeof(Collider))]
+    [RequireComponent(typeof(Rigidbody), typeof(Collider), typeof(AudioClip))]
     public sealed class ProjectileView : MonoBehaviour
     {
+        [SerializeField] private AudioSource _audioSource;
         [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
 
         public event Action CollidedObject = () => { };
@@ -20,6 +21,13 @@ namespace Gameplay.Projectile
             {
                 Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             }
+
+            _audioSource ??= GetComponent<AudioSource>();
+        }
+
+        private void Start()
+        {
+            _audioSource.Play();
         }
 
         private void OnCollisionEnter(Collision collision)
