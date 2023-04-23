@@ -1,4 +1,5 @@
 using Gameplay.Enemy;
+using Gameplay.Input;
 using Scriptables;
 using UnityEngine;
 using Zenject;
@@ -11,8 +12,17 @@ namespace Gameplay.Installers
 
         public override void InstallBindings()
         {
+            InstallEnemyInput();
             InstallEnemy();
             InstallEnemyCounter();
+        }
+
+        private void InstallEnemyInput()
+        {
+            Container
+                .Bind<EnemyInput>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallEnemy()

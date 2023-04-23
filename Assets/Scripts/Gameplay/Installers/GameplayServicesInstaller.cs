@@ -57,11 +57,11 @@ namespace Gameplay.Installers
         {
             Container
                  .BindFactory<UnitView, ProjectileConfig, Timer, ProjectileAbility, ProjectileAbilityFactory>()
-                 .AsCached();
+                 .AsSingle();
             
             Container
-                 .BindFactory<UnitView, UnitAbilitiesConfig, UnitAbilities, UnitAbilitiesFactory>()
-                 .AsCached();
+                 .BindFactory<UnitView, IUnitMovementInput, UnitAbilitiesConfig, UnitAbilities, UnitAbilitiesFactory>()
+                 .AsSingle();
         }
     }
 }

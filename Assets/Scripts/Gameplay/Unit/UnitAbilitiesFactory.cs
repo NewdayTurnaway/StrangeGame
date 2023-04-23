@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Gameplay.Unit
 {
-    public sealed class UnitAbilitiesFactory : PlaceholderFactory<UnitView, UnitAbilitiesConfig, UnitAbilities>
+    public sealed class UnitAbilitiesFactory : PlaceholderFactory<UnitView, IUnitMovementInput, UnitAbilitiesConfig, UnitAbilities>
     {
     }
 }

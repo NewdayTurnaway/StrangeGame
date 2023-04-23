@@ -1,4 +1,3 @@
-using Gameplay.Input;
 using Gameplay.Mechanics.Timer;
 using Scriptables;
 using System;
@@ -9,7 +8,7 @@ namespace Gameplay.Unit
     {
         private readonly TimerFactory _timerFactory;
         private readonly UnitView _unitView;
-        private readonly PlayerInput _playerInput;
+        private readonly IUnitMovementInput _input;
         private readonly UnitAbilitiesConfig _unitAbilitiesConfig;
         private readonly ProjectileAbilityFactory _projectileAbilityFactory;
 
@@ -22,26 +21,26 @@ namespace Gameplay.Unit
         public UnitAbilities(
             TimerFactory timerFactory,
             UnitView unitView,
-            PlayerInput playerInput,
+            IUnitMovementInput input,
             UnitAbilitiesConfig unitAbilitiesConfig,
             ProjectileAbilityFactory projectileAbilityFactory)
         {
             _timerFactory = timerFactory;
             _unitView = unitView;
-            _playerInput = playerInput;
+            _input = input;
             _unitAbilitiesConfig = unitAbilitiesConfig;
             _projectileAbilityFactory = projectileAbilityFactory;
 
             if (_unitAbilitiesConfig.FirstProjectileAbility != null)
             {
                 _firstProjectileAbility = CreateProjectileAbility(_unitAbilitiesConfig.FirstProjectileAbility);
-                _playerInput.FirstAbilityInput += OnFirstAbilityInput;
+                _input.FirstAbilityInput += OnFirstAbilityInput;
             }
 
             if (_unitAbilitiesConfig.SecondProjectileAbility != null)
             {
                 _secondProjectileAbility = CreateProjectileAbility(_unitAbilitiesConfig.SecondProjectileAbility);
-                _playerInput.SecondAbilityInput += OnSecondAbilityInput;
+                _input.SecondAbilityInput += OnSecondAbilityInput;
             }
         }
 
@@ -51,13 +50,13 @@ namespace Gameplay.Unit
         {
             if (_firstProjectileAbility != null)
             {
-                _playerInput.FirstAbilityInput -= OnFirstAbilityInput;
+                _input.FirstAbilityInput -= OnFirstAbilityInput;
                 _firstProjectileAbility.Dispose(); 
             }
             
             if (_secondProjectileAbility != null)
             {
-                _playerInput.SecondAbilityInput -= OnSecondAbilityInput;
+                _input.SecondAbilityInput -= OnSecondAbilityInput;
                 _secondProjectileAbility.Dispose(); 
             }
         }

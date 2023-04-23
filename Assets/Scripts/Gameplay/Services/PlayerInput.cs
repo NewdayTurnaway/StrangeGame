@@ -1,10 +1,11 @@
 using System;
+using Gameplay.Unit;
 using Services;
 using UnityEngine;
 
 namespace Gameplay.Input
 {
-    public sealed class PlayerInput : IDisposable
+    public sealed class PlayerInput : IUnitMovementInput, IDisposable
     {
         private readonly Updater _updater;
 

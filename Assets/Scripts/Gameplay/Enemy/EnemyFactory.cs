@@ -1,3 +1,4 @@
+using Gameplay.Input;
 using Gameplay.Unit;
 using Scriptables;
 using Services;
@@ -11,6 +12,7 @@ namespace Gameplay.Enemy
     {
         private readonly DiContainer _diContainer;
         private readonly Updater _updater;
+        private readonly EnemyInput _enemyInput;
         private readonly EnemyConfig _enemyConfig;
         private readonly UnitHealthFactory _unitHealthFactory;
         private readonly UnitAbilitiesFactory _unitAbilitiesFactory;
@@ -20,12 +22,14 @@ namespace Gameplay.Enemy
         public EnemyFactory(
             DiContainer diContainer,
             Updater updater,
+            EnemyInput enemyInput,
             EnemyConfig enemyConfig,
             UnitHealthFactory unitHealthFactory,
             UnitAbilitiesFactory unitAbilitiesFactory)
         {
             _diContainer = diContainer;
             _updater = updater;
+            _enemyInput = enemyInput;
             _enemyConfig = enemyConfig;
             _unitHealthFactory = unitHealthFactory;
             _unitAbilitiesFactory = unitAbilitiesFactory;
@@ -37,7 +41,7 @@ namespace Gameplay.Enemy
             view.transform.position = position;
             
             var unitHealth = _unitHealthFactory.Create(view, _enemyConfig.Health);
-            var unitAbilities = _unitAbilitiesFactory.Create(view, _enemyConfig.UnitAbilitiesConfig);
+            var unitAbilities = _unitAbilitiesFactory.Create(view, _enemyInput, _enemyConfig.UnitAbilitiesConfig);
 
             var player = new Enemy(_updater, view, unitHealth, unitAbilities);
             EnemyCreated(player);

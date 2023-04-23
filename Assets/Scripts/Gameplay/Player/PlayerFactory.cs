@@ -1,3 +1,4 @@
+using Gameplay.Input;
 using Gameplay.Unit;
 using Scriptables;
 using Services;
@@ -11,6 +12,7 @@ namespace Gameplay.Player
     {
         private readonly DiContainer _diContainer;
         private readonly Updater _updater;
+        private readonly PlayerInput _playerInput;
         private readonly PlayerConfig _playerConfig;
         private readonly PlayerMovementFactory _playerMovementFactory;
         private readonly UnitHealthFactory _unitHealthFactory;
@@ -21,6 +23,7 @@ namespace Gameplay.Player
         public PlayerFactory(
             DiContainer diContainer,
             Updater updater,
+            PlayerInput playerInput,
             PlayerConfig playerConfig,
             PlayerMovementFactory playerMovementFactory,
             UnitHealthFactory unitHealthFactory,
@@ -28,6 +31,7 @@ namespace Gameplay.Player
         {
             _diContainer = diContainer;
             _updater = updater;
+            _playerInput = playerInput;
             _playerConfig = playerConfig;
             _playerMovementFactory = playerMovementFactory;
             _unitHealthFactory = unitHealthFactory;
@@ -41,7 +45,7 @@ namespace Gameplay.Player
             
             var movement = _playerMovementFactory.Create(view);
             var unitHealth = _unitHealthFactory.Create(view, _playerConfig.Health);
-            var unitAbilities = _unitAbilitiesFactory.Create(view, _playerConfig.UnitAbilitiesConfig);
+            var unitAbilities = _unitAbilitiesFactory.Create(view, _playerInput, _playerConfig.UnitAbilitiesConfig);
 
             var player = new Player(_updater, view, movement, unitHealth, unitAbilities);
             PlayerCreated(player);
