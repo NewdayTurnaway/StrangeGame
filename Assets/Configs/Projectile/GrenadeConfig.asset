@@ -18,8 +18,9 @@ MonoBehaviour:
   <LifeTime>k__BackingField: 10
   <IsDestroyedOnHit>k__BackingField: 1
   <TotalThrows>k__BackingField: 3
-  <ThrowForce>k__BackingField: 20
-  <ThrowUpwardForce>k__BackingField: 10
+  <ThrowForce>k__BackingField: 25
+  <ThrowUpwardForce>k__BackingField: 7
   <ThrowCooldown>k__BackingField: 5
+  <ExplosionEffect>k__BackingField: {fileID: 8372501191017699208, guid: 15bae477c1a3b07409ab9a496f02590f, type: 3}
   <ExplosionRadius>k__BackingField: 10
   <ExplosionForce>k__BackingField: 20

@@ -1,4 +1,5 @@
 ﻿using Gameplay.Unit;
+using UnityEngine;
 
 namespace Gameplay.Projectile
 {
@@ -9,6 +10,7 @@ namespace Gameplay.Projectile
         public float Damage { get; private set; }
         public float LifeTime { get; private set; }
         public bool IsDestroyedOnHit { get; private set; }
+        public ParticleSystem ExplosionEffect { get; private set; }
         public float ExplosionRadius { get; private set; }
         public float ExplosionForce { get; private set; }
 
@@ -18,6 +20,7 @@ namespace Gameplay.Projectile
             float damage,
             float lifeTime,
             bool isDestroyedOnHit,
+            ParticleSystem explosionEffect,
             float explosionRadius,
             float explosionForce)
         {
@@ -26,6 +29,7 @@ namespace Gameplay.Projectile
             Damage = damage;
             LifeTime = lifeTime;
             IsDestroyedOnHit = isDestroyedOnHit;
+            ExplosionEffect = explosionEffect;
             ExplosionRadius = explosionRadius;
             ExplosionForce = explosionForce;
         }

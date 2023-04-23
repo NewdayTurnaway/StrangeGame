@@ -44,8 +44,6 @@ namespace Gameplay.Unit
             }
         }
 
-        
-
         public void Dispose()
         {
             if (_firstProjectileAbility != null)

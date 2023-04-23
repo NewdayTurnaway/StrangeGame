@@ -8,7 +8,7 @@ namespace UI.Services
     public sealed class AuthorizationService : IInitializable, IDisposable
     {
         private const string PASSWORD_ERROR = "Password too short!";
-
+        private readonly GameStateService _gameStateService;
         private readonly PlayerDataService _playerDataService;
         private readonly PlayFabService _playFabService;
         private readonly AuthorizationCanvasView _authorizationCanvasView;
@@ -17,6 +17,7 @@ namespace UI.Services
         private readonly ErrorCanvasView _errorCanvasView;
 
         public AuthorizationService(
+            GameStateService gameStateService,
             PlayerDataService playerDataService,
             PlayFabService playFabService,
             AuthorizationCanvasView authorizationCanvasView,
@@ -24,6 +25,7 @@ namespace UI.Services
             CreateAccountCanvasView createAccountCanvasView,
             ErrorCanvasView errorCanvasView)
         {
+            _gameStateService = gameStateService;
             _playerDataService = playerDataService;
             _playFabService = playFabService;
             _authorizationCanvasView = authorizationCanvasView;
@@ -36,7 +38,7 @@ namespace UI.Services
         {
             _errorCanvasView.ShowCanvas(false);
             _playFabService.Error += OnError; 
-            _authorizationCanvasView.Init(OpenSignInWindow, OpenCreateAccountWindow);
+            _authorizationCanvasView.Init(_gameStateService.ExitGame, OpenSignInWindow, OpenCreateAccountWindow);
             _signInCanvasView.Init(CloseSignInWindow, SignIn);
             _createAccountCanvasView.Init(CloseCreateAccountWindow, CreateAccount);
 

@@ -19,6 +19,7 @@ namespace Scriptables
         [field: SerializeField, Min(0)] public float ThrowCooldown { get; private set; } = 0.1f;
 
         [field: Header("Explosive Projectile")]
+        [field: SerializeField, Min(0)] public ParticleSystem ExplosionEffect { get; private set; }
         [field: SerializeField, Min(0)] public float ExplosionRadius { get; private set; } = 10f;
         [field: SerializeField, Min(0)] public float ExplosionForce { get; private set; } = 50f;
     }

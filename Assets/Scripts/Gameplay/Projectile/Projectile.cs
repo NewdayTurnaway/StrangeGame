@@ -81,6 +81,10 @@ namespace Gameplay.Projectile
         private void Explosion()
         {
             var projectilePosition = _projectileView.transform.position;
+            
+            var effect = Object.Instantiate(_projectileInfo.ExplosionEffect, projectilePosition, Quaternion.identity);
+            effect.Play();
+
             var objectsInRange = Physics.OverlapSphere(projectilePosition, _projectileInfo.ExplosionRadius);
 
             for (int i = 0; i < objectsInRange.Length; i++)

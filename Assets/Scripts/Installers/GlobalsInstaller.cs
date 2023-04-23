@@ -10,7 +10,6 @@ namespace Installers
     public sealed class GlobalsInstaller : MonoInstaller
     {
         [field: SerializeField] public LoadingCanvasView LoadingCanvasView { get; private set; }
-
         [field: SerializeField] public AudioMixerGroup MasterAudioMixerGroup { get; private set; }
         [field: SerializeField] public AudioSource Ambient { get; private set; }
 

@@ -12,6 +12,7 @@ namespace Gameplay.Unit
     {
         private const float RAYCAST_MAX_DISTANCE = 500f;
 
+        private readonly Transform _unitTransform;
         private readonly Transform _headTransform;
         private readonly ProjectileFactory _projectileFactory;
 
@@ -36,6 +37,7 @@ namespace Gameplay.Unit
             ProjectileConfig projectileConfig,
             Timer timer)
         {
+            _unitTransform = unitView.transform;
             _headTransform = unitView.Head.transform;
             _projectileFactory = projectileFactory;
             _throwPoint = unitView.ThrowPoint;
@@ -55,6 +57,7 @@ namespace Gameplay.Unit
                 _projectileConfig.Damage,
                 _projectileConfig.LifeTime,
                 _projectileConfig.IsDestroyedOnHit,
+                _projectileConfig.ExplosionEffect,
                 _projectileConfig.ExplosionRadius,
                 _projectileConfig.ExplosionForce);
 
@@ -99,7 +102,7 @@ namespace Gameplay.Unit
                 forceDirection.y += Random.Range(0, 0.1f);
             }
             
-            var forceToAdd = forceDirection * _projectileConfig.ThrowForce + _throwPoint.up * _projectileConfig.ThrowUpwardForce;
+            var forceToAdd = forceDirection * _projectileConfig.ThrowForce + _unitTransform.up * _projectileConfig.ThrowUpwardForce;
 
 
             _projectileSpawnParams.ForceToAdd = forceToAdd;

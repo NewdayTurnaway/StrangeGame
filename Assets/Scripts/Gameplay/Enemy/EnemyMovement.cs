@@ -60,7 +60,6 @@ namespace Gameplay.Enemy
             _updater.UnsubscribeFromFixedUpdate(Move);
         }
 
-
         private void OnVerticalAxisChange(float verticalInput)
         {
             _verticalInput = verticalInput;

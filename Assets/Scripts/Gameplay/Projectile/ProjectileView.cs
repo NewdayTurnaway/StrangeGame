@@ -20,6 +20,7 @@ namespace Gameplay.Projectile
             if (Rigidbody != null)
             {
                 Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+                Rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
             }
 
             _audioSource ??= GetComponent<AudioSource>();
