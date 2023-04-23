@@ -9,7 +9,7 @@ namespace Gameplay.Enemy
         private const int LOWER_HEIGHT_LIMIT = -100;
 
         private readonly Updater _updater;
-        //UnitMovement
+        private readonly EnemyMovement _enemyMovement;
         private readonly UnitHealth _unitHealth;
         private readonly UnitAbilities _unitAbilities;
 
@@ -21,12 +21,14 @@ namespace Gameplay.Enemy
         public Enemy(
             Updater updater,
             EnemyView enemyView,
+            EnemyMovement enemyMovement,
             UnitHealth unitHealth,
             UnitAbilities unitAbilities
             )
         {
             _updater = updater;
             EnemyView = enemyView;
+            _enemyMovement = enemyMovement;
             _unitHealth = unitHealth;
             _unitAbilities = unitAbilities;
 
@@ -41,6 +43,7 @@ namespace Gameplay.Enemy
 
             EnemyDestroyed.Invoke(this);
 
+            _enemyMovement.Dispose();
             _unitAbilities.Dispose();
 
             if(EnemyView != null) UnityEngine.Object.Destroy(EnemyView.gameObject);

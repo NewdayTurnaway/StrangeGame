@@ -14,6 +14,7 @@ namespace Gameplay.Enemy
         private readonly Updater _updater;
         private readonly EnemyInput _enemyInput;
         private readonly EnemyConfig _enemyConfig;
+        private readonly EnemyMovementFactory _enemyMovementFactory;
         private readonly UnitHealthFactory _unitHealthFactory;
         private readonly UnitAbilitiesFactory _unitAbilitiesFactory;
 
@@ -24,6 +25,7 @@ namespace Gameplay.Enemy
             Updater updater,
             EnemyInput enemyInput,
             EnemyConfig enemyConfig,
+            EnemyMovementFactory enemyMovementFactory,
             UnitHealthFactory unitHealthFactory,
             UnitAbilitiesFactory unitAbilitiesFactory)
         {
@@ -31,6 +33,7 @@ namespace Gameplay.Enemy
             _updater = updater;
             _enemyInput = enemyInput;
             _enemyConfig = enemyConfig;
+            _enemyMovementFactory = enemyMovementFactory;
             _unitHealthFactory = unitHealthFactory;
             _unitAbilitiesFactory = unitAbilitiesFactory;
         }
@@ -40,10 +43,11 @@ namespace Gameplay.Enemy
             var view = _diContainer.InstantiatePrefabForComponent<EnemyView>(_enemyConfig.EnemyView);
             view.transform.position = position;
             
+            var movement = _enemyMovementFactory.Create(view);
             var unitHealth = _unitHealthFactory.Create(view, _enemyConfig.Health);
             var unitAbilities = _unitAbilitiesFactory.Create(view, _enemyInput, _enemyConfig.UnitAbilitiesConfig);
 
-            var player = new Enemy(_updater, view, unitHealth, unitAbilities);
+            var player = new Enemy(_updater, view, movement, unitHealth, unitAbilities);
             EnemyCreated(player);
             return player;
         }
