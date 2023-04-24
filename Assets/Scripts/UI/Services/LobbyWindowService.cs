@@ -1,11 +1,7 @@
+using Photon.Realtime;
 using Services;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.XR;
-using UnityEngine;
-using UnityEngine.Audio;
-using Zenject;
 
 namespace UI.Services
 {
@@ -13,6 +9,7 @@ namespace UI.Services
     {
         private readonly LoadingUIService _loadingUIService;
         private readonly PlayerDataService _playerDataService;
+        private readonly PhotonLobbyService _photonLobbyService;
         private readonly MultiplayerView _multiplayerView;
 
         private string _selectedRoomName;
@@ -20,27 +17,33 @@ namespace UI.Services
         public LobbyWindowService(
             LoadingUIService loadingUIService,
             PlayerDataService playerDataService,
-            //Photon
+            PhotonLobbyService photonLobbyService,
             MainMenuCanvasView mainMenuCanvasView,
             MultiplayerView multiplayerView
             )
         {
             _loadingUIService = loadingUIService;
             _playerDataService = playerDataService;
+            _photonLobbyService = photonLobbyService;
             _multiplayerView = multiplayerView;
 
-            if (!_playerDataService.IsLoginSuccess)
-            {
-                mainMenuCanvasView.MultiplayerButton.interactable = false;
-                return;
-            }
-
+            //if (!_playerDataService.IsLoginSuccess)
+            //{
+            //    mainMenuCanvasView.MultiplayerButton.interactable = false;
+            //    return;
+            //}
+            
             InitLobbyWindow();
+            
+            _photonLobbyService.UpdateRoomInfoText += OnUpdateRoomInfoText;
+            _photonLobbyService.CreatedRoom += OnCreatedRoom;
+            _photonLobbyService.JoinedLobby += OnJoinedLobby;
+            _photonLobbyService.JoinedRoom += OnJoinedRoom;
+            _photonLobbyService.RoomListUpdate += OnRoomListUpdate;
         }
 
         private void InitLobbyWindow()
         {
-            _multiplayerView.LobbyWindowCanvasView.RefreshButton.onClick.AddListener(RefreshLobby);
             _multiplayerView.LobbyWindowCanvasView.CreateRoomButton.onClick.AddListener(OpenCreateRoom);
             _multiplayerView.LobbyWindowCanvasView.ConnectToPrivateRoomButton.onClick.AddListener(OpenConnectToPrivateRoom);
             _multiplayerView.LobbyWindowCanvasView.SelectedRoomName += OnSelectedRoomName;
@@ -60,7 +63,12 @@ namespace UI.Services
 
         public void Dispose()
         {
-            _multiplayerView.LobbyWindowCanvasView.RefreshButton.onClick.RemoveListener(RefreshLobby);
+            _photonLobbyService.UpdateRoomInfoText -= OnUpdateRoomInfoText;
+            _photonLobbyService.CreatedRoom -= OnCreatedRoom;
+            _photonLobbyService.JoinedLobby -= OnJoinedLobby;
+            _photonLobbyService.JoinedRoom -= OnJoinedRoom;
+            _photonLobbyService.RoomListUpdate -= OnRoomListUpdate;
+
             _multiplayerView.LobbyWindowCanvasView.CreateRoomButton.onClick.RemoveListener(OpenCreateRoom);
             _multiplayerView.LobbyWindowCanvasView.ConnectToPrivateRoomButton.onClick.RemoveListener(OpenConnectToPrivateRoom);
             _multiplayerView.LobbyWindowCanvasView.SelectedRoomName -= OnSelectedRoomName;
@@ -74,12 +82,35 @@ namespace UI.Services
             _multiplayerView.RoomWindowCanvasView.OpenOrCloseButton.onClick.RemoveListener(OpenOrCloseRoom);
         }
 
-        private void RefreshLobby()
+        private void OnUpdateRoomInfoText(string roomInfo)
         {
-            _loadingUIService.ShowLoading();
-            //
+            _multiplayerView.RoomWindowCanvasView.UpdateRoomInfoText(roomInfo);
         }
-        
+
+        private void OnCreatedRoom()
+        {
+            _multiplayerView.CreateRoomWindowCanvasView.ShowCanvas(false);
+            _multiplayerView.ConnectToPrivateRoomWindowCanvasView.ShowCanvas(false);
+
+
+        }
+
+        private void OnJoinedLobby()
+        {
+            _loadingUIService.HideLoading();
+        }
+
+        private void OnJoinedRoom(string name, string info, bool isOpen)
+        {
+            _multiplayerView.RoomWindowCanvasView.InitRoom(name, info, isOpen);
+            _multiplayerView.RoomWindowCanvasView.ShowCanvas(true);
+        }
+
+        private void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+            _multiplayerView.LobbyWindowCanvasView.GetNewRooms(roomList);
+        }
+
         private void OpenCreateRoom()
         {
             _multiplayerView.CreateRoomWindowCanvasView.ShowCanvas(true);
@@ -97,77 +128,28 @@ namespace UI.Services
         
         private void ConnectToSelectedRoom()
         {
-            //Photon
-            //var enterRoomParams = new EnterRoomParams { Lobby = _defaultLobby, RoomName = _selectedRoomName };
-            //_loadBalancingClient.OpJoinRoom(enterRoomParams);
+            _photonLobbyService.ConnectToSelectedRoom(_selectedRoomName);
         }
         
         private void CreateRoom()
         {
-            //Photon
-            //string roomName;
-            //if (string.IsNullOrEmpty(_createRoomWindow.RoomNameInputField.text))
-            //{
-            //    roomName = $"Game Room {Random.Range(0, 100)}";
-            //}
-            //else
-            //{
-            //    roomName = _createRoomWindow.RoomNameInputField.text;
-            //}
-
-            //var isPublic = !_createRoomWindow.IsPrivate.isOn;
-            //var customProperty = isPublic ? PUBLIC : PRIVATE;
-
-            //var roomOptions = new RoomOptions
-            //{
-            //    MaxPlayers = 4,
-            //    CustomRoomProperties = new Hashtable { { CUSTOM_PROP_KEY, customProperty } },
-            //    CustomRoomPropertiesForLobby = new[] { CUSTOM_PROP_KEY },
-            //    IsVisible = isPublic,
-            //    IsOpen = true,
-            //    PublishUserId = true,
-            //    PlayerTtl = 10000
-            //};
-
-            //var enterRoomParams = new EnterRoomParams { Lobby = _defaultLobby, RoomName = roomName, RoomOptions = roomOptions };
-            //_loadBalancingClient.OpJoinOrCreateRoom(enterRoomParams);
+            _photonLobbyService.CreateRoom(_multiplayerView.CreateRoomWindowCanvasView.RoomNameInputField.text, _multiplayerView.CreateRoomWindowCanvasView.IsPrivate.isOn);
         }
         
         private void ConnectToPrivateRoom()
         {
-            //Photon
-            //string roomName;
-            //if (string.IsNullOrEmpty(_connectToPrivateRoomWindow.PrivateRoomNameInputField.text))
-            //{
-            //    return;
-            //}
-            //else
-            //{
-            //    roomName = _connectToPrivateRoomWindow.PrivateRoomNameInputField.text;
-            //}
-
-            //var enterRoomParams = new EnterRoomParams { Lobby = _defaultLobby, RoomName = roomName };
-            //_loadBalancingClient.OpJoinRoom(enterRoomParams);
+            _photonLobbyService.ConnectToPrivateRoom(_multiplayerView.ConnectToPrivateRoomWindowCanvasView.PrivateRoomNameInputField.text);
         }
 
         private void LeaveRoom()
         {
             _multiplayerView.RoomWindowCanvasView.ShowCanvas(false);
-            //_loadBalancingClient.OpLeaveRoom(false);
+            _photonLobbyService.LeaveRoom();
         }
 
         private void OpenOrCloseRoom()
         {
-            //_loadBalancingClient.CurrentRoom.IsOpen = !_loadBalancingClient.CurrentRoom.IsOpen;
-
-            //if (_loadBalancingClient.CurrentRoom.IsOpen)
-            //{
-            //    _multiplayerView.RoomWindowCanvasView.OpenRoom();
-            //}
-            //else
-            //{
-            //    _multiplayerView.RoomWindowCanvasView.CloseRoom();
-            //}
+            _photonLobbyService.OpenOrCloseRoom(_multiplayerView.RoomWindowCanvasView.OpenRoom, _multiplayerView.RoomWindowCanvasView.CloseRoom);
         }
     }
 }

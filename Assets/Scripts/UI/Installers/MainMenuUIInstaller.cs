@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UI.Services;
 using UnityEngine;
 using Zenject;
@@ -8,6 +9,7 @@ namespace UI.Installers
     {
         [field: SerializeField] public MainMenuCanvasView MainMenuCanvasView { get; private set; }
         [field: SerializeField] public MultiplayerView MultiplayerView { get; private set; }
+        [field: SerializeField] public ServerSettings ServerSettings { get; private set; }
         [field: SerializeField] public RecordsWindowCanvasView RecordsWindowCanvasView { get; private set; }
         [field: SerializeField] public SettingsWindowCanvasView SettingsWindowCanvasView { get; private set; }
 
@@ -15,6 +17,7 @@ namespace UI.Installers
         {
             BindCanvases();
             BindMainMenuService();
+            BindLobbyWindowService();
             BindRecordsWindowService();
             BindSettingsService();
         }
@@ -50,6 +53,25 @@ namespace UI.Installers
         {
             Container
                 .BindInterfacesAndSelfTo<MainMenuService>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindLobbyWindowService()
+        {
+            Container
+                .Bind<ServerSettings>()
+                .FromInstance(ServerSettings)
+                .AsSingle()
+                .NonLazy();
+
+            Container
+                .BindInterfacesAndSelfTo<PhotonLobbyService>()
+                .AsSingle()
+                .NonLazy();
+            
+            Container
+                .BindInterfacesAndSelfTo<LobbyWindowService>()
                 .AsSingle()
                 .NonLazy();
         }
