@@ -31,7 +31,7 @@ namespace Gameplay.Projectile
         {
             _lifeTime.OnExpire -= Dispose;
             _projectileView.CollidedObject -= OnCollided;
-            _projectileView.DamagedUnit += OnDamage;
+            _projectileView.DamagedUnit -= OnDamage;
             _lifeTime.Dispose();
 
             if(_projectileInfo.ProjectileType == ProjectileType.Explosive)

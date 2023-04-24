@@ -16,6 +16,7 @@ namespace UI.Services
         private const string PUBLIC = "Public";
 
         private readonly Updater _updater;
+        private readonly PlayerDataService _playerDataService;
         private readonly ServerSettings _serverSettings;
 
         private readonly LoadBalancingClient _loadBalancingClient = new();
@@ -27,10 +28,16 @@ namespace UI.Services
         public event Action<string, string, bool> JoinedRoom = (_, _, _) => { };
         public event Action<List<RoomInfo>> RoomListUpdate = (_) => { };
 
-        public PhotonLobbyService(Updater updater, ServerSettings serverSettings)
+        public PhotonLobbyService(Updater updater, PlayerDataService playerDataService, ServerSettings serverSettings)
         {
             _updater = updater;
+            _playerDataService = playerDataService;
             _serverSettings = serverSettings;
+
+            if (!_playerDataService.IsLoginSuccess)
+            {
+                return;
+            }
 
             _loadBalancingClient.AddCallbackTarget(this);
             _loadBalancingClient.ConnectUsingSettings(_serverSettings.AppSettings);

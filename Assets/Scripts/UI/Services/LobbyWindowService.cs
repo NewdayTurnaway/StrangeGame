@@ -27,12 +27,12 @@ namespace UI.Services
             _photonLobbyService = photonLobbyService;
             _multiplayerView = multiplayerView;
 
-            //if (!_playerDataService.IsLoginSuccess)
-            //{
-            //    mainMenuCanvasView.MultiplayerButton.interactable = false;
-            //    return;
-            //}
-            
+            if (!_playerDataService.IsLoginSuccess)
+            {
+                mainMenuCanvasView.MultiplayerButton.interactable = false;
+                return;
+            }
+
             InitLobbyWindow();
             
             _photonLobbyService.UpdateRoomInfoText += OnUpdateRoomInfoText;

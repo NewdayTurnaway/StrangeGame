@@ -19,7 +19,7 @@ MonoBehaviour:
   <OptionalCooldown>k__BackingField: 2
   <StopDistance>k__BackingField: 10
   <MoveSpeed>k__BackingField: 10
-  <SpeedMiltiplier>k__BackingField: 10
+  <SpeedMiltiplier>k__BackingField: 5
   <JumpForce>k__BackingField: 8
   <JumpCooldown>k__BackingField: 5
   <AirMiltiplier>k__BackingField: 0.4

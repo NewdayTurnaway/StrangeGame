@@ -55,7 +55,7 @@ namespace UI.Services
 
             foreach (var resolution in _resolutions)
             {
-                var option = $"{resolution.width}x{resolution.height}";
+                var option = $"{resolution.width}x{resolution.height} {resolution.refreshRate}Hz";
                 options.Add(option);
             }
 
