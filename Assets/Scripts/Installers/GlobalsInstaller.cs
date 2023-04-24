@@ -101,6 +101,11 @@ namespace Installers
                 .BindInterfacesAndSelfTo<PlayFabService>()
                 .AsSingle()
                 .NonLazy();
+            
+            Container
+                .BindInterfacesAndSelfTo<PlayFabStatistics>()
+                .AsSingle()
+                .NonLazy();
         }
         
         private void BindUpdater()

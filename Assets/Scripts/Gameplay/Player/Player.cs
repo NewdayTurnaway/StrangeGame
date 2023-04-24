@@ -19,6 +19,7 @@ namespace Gameplay.Player
         public UnitHealth UnitHealth => _unitHealth;
 
         public event Action PlayerDestroyed = () => { };
+        public event Action PlayerMurdered = () => { };
         public event Action PlayerFell = () => { };
 
         public Player(
@@ -63,6 +64,7 @@ namespace Gameplay.Player
 
         private void OnDeath()
         {
+            PlayerMurdered.Invoke();
             Dispose();
         }
     }

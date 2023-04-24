@@ -18,24 +18,32 @@ namespace Gameplay.Enemy
             _currentGameState = currentGameState;
             _enemyFactory = enemyFactory;
 
+            _currentGameState.NextLevelAction += OnNextLevelAction;
             _enemyFactory.EnemyCreated += OnEnemyCreated;
         }
 
         public void Dispose()
         {
+            _currentGameState.NextLevelAction -= OnNextLevelAction;
             _enemyFactory.EnemyCreated -= OnEnemyCreated;
+        }
+
+        private void OnNextLevelAction()
+        {
+            TotalCreatedEnemies = 0;
+            TotalDestroyedEnemies = 0;
         }
 
         private void OnEnemyCreated(Enemy enemy)
         {
-            enemy.EnemyDestroyed += OnEnemyDestroyed;
+            enemy.CountedMurder += OnEnemyDestroyed;
             TotalCreatedEnemies++;
             CounterChanged.Invoke();
         }
 
         private void OnEnemyDestroyed(Enemy enemy)
         {
-            enemy.EnemyDestroyed -= OnEnemyDestroyed;
+            enemy.CountedMurder -= OnEnemyDestroyed;
             TotalDestroyedEnemies++;
             CounterChanged.Invoke();
             _currentGameState.UpdateScore(10);

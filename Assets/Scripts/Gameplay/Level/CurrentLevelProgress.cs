@@ -33,7 +33,7 @@ namespace Gameplay.Level
             if (_player != null)
             {
                 _player.PlayerFell -= PenaltyScore;
-                _player.PlayerDestroyed -= GameOver;
+                _player.PlayerMurdered -= GameOver;
             }
 
             _playerFactory.PlayerCreated -= OnPlayerCreated;
@@ -45,7 +45,7 @@ namespace Gameplay.Level
         {
             _player = player;
             _player.PlayerFell += PenaltyScore;
-            _player.PlayerDestroyed += GameOver;
+            _player.PlayerMurdered += GameOver;
         }
 
         private void OnCounterChanged()
@@ -53,12 +53,12 @@ namespace Gameplay.Level
             if (_enemyCounter.TotalCreatedEnemies == _enemyCounter.TotalDestroyedEnemies)
             {
                 LevelComplete.Invoke(true);
+                _currentGameState.UpdatePlayerData();
             }
         }
 
         private void GameOver()
         {
-            PenaltyScore();
             LevelComplete.Invoke(false);
         }
 

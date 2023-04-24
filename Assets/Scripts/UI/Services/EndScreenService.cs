@@ -16,6 +16,8 @@ namespace UI.Services
         private readonly EndScreenCanvasView _endScreenCanvasView;
         private readonly StatisticService _statisticService;
 
+        private bool _isComplete;
+
         public EndScreenService(
             GameStateService gameStateService,
             CurrentGameState currentGameState,
@@ -36,10 +38,30 @@ namespace UI.Services
         public void Initialize()
         {
             _endScreenCanvasView.ShowCanvas(false);
-            _endScreenCanvasView.Init(_currentGameState.StartNextLevel, _gameStateService.GoToMenu, _gameStateService.ExitGame);
+            _endScreenCanvasView.Init(_currentGameState.StartNextLevel, GoToMenu, ExitGame);
 
             _currentGameState.NextLevelAction += OnNextLevelAction;
             _currentLevelProgress.LevelComplete += OpenEndScreenWindow;
+        }
+
+        private void ExitGame()
+        {
+            if (_isComplete)
+            {
+                _currentGameState.UpdateRecordScore();
+            }
+            _isComplete = false;
+            _gameStateService.ExitGame();
+        }
+
+        private void GoToMenu()
+        {
+            if (_isComplete)
+            {
+                _currentGameState.UpdateRecordScore();
+            }
+            _isComplete = false;
+            _gameStateService.GoToMenu();
         }
 
         public void Dispose()
@@ -53,16 +75,18 @@ namespace UI.Services
         {
             _playerInput.SetActivePauseButton(true);
             _playerInput.IsPause = false;
+            _statisticService.ResumeTimer();
             _endScreenCanvasView.ShowCanvas(false);
         }
 
         private void OpenEndScreenWindow(bool isLevelComplete)
         {
+            _isComplete = isLevelComplete;
             _playerInput.SetActivePauseButton(false);
             _playerInput.IsPause = true;
             _statisticService.PauseTimer();
 
-            if (isLevelComplete)
+            if (_isComplete)
             {
                 _endScreenCanvasView.ShowLevelComplete(); 
             }

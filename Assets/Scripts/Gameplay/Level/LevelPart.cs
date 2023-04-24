@@ -1,3 +1,4 @@
+using Gameplay.Player;
 using System;
 using System.Collections.Generic;
 
@@ -33,6 +34,8 @@ namespace Gameplay.Level
             Enemies.Clear();
 
             LevelPartView.PlayerInThisLevelPart -= PlayerChangeLevelPart;
+
+            if (LevelPartView != null) UnityEngine.Object.Destroy(LevelPartView.gameObject);
         }
 
         private void OnEnemyDestroyed(Enemy.Enemy enemy)

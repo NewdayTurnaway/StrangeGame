@@ -60,7 +60,7 @@ namespace Gameplay.Services
             
             if(_player != null)
             {
-                _player.PlayerDestroyed -= OnPlayerDestroyed;
+                _player.PlayerMurdered -= OnPlayerDestroyed;
             }
 
             _updater.UnsubscribeFromUpdate(RotateCamera);
@@ -73,7 +73,7 @@ namespace Gameplay.Services
             _headTransform = _player.PlayerView.Head;
             _orientationTransform = _player.PlayerView.Orientation;
 
-            _player.PlayerDestroyed += OnPlayerDestroyed;
+            _player.PlayerMurdered += OnPlayerDestroyed;
             _updater.SubscribeToUpdate(RotateCamera);
             _updater.SubscribeToUpdate(FollowPlayer);
         }
@@ -96,6 +96,7 @@ namespace Gameplay.Services
 
         private void RotateCamera()
         {
+            if (_player.PlayerView == null) return;
             _cameraTransform.rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
             _orientationTransform.rotation = Quaternion.Euler(0, _yRotation, 0);
             _headTransform.rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
@@ -103,6 +104,7 @@ namespace Gameplay.Services
 
         private void FollowPlayer()
         {
+            if (_player.PlayerView == null) return;
             _cameraTransform.position = _headTransform.position;
         }
     }

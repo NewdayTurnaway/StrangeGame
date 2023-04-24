@@ -1,6 +1,7 @@
 using Gameplay.Enemy;
 using Gameplay.Services;
 using System;
+using Zenject;
 
 namespace UI.Services
 {

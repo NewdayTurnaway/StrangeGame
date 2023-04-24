@@ -15,6 +15,7 @@ namespace UI.Installers
         {
             BindCanvases();
             BindMainMenuService();
+            BindRecordsWindowService();
             BindSettingsService();
         }
 
@@ -49,6 +50,14 @@ namespace UI.Installers
         {
             Container
                 .BindInterfacesAndSelfTo<MainMenuService>()
+                .AsSingle()
+                .NonLazy();
+        }
+        
+        private void BindRecordsWindowService()
+        {
+            Container
+                .BindInterfacesAndSelfTo<RecordsWindowService>()
                 .AsSingle()
                 .NonLazy();
         }

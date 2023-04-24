@@ -28,6 +28,7 @@ namespace Gameplay.Services
         public void Initialize()
         {
             RecordScore = _playerDataService.RecordScore;
+            ScoreChanged.Invoke();
             CurrentLevelNumber = 1;
             _currentLevel = _levelFactory.Create(CurrentLevelNumber);
         }
@@ -52,9 +53,18 @@ namespace Gameplay.Services
             if (RecordScore < CurrentScore)
             {
                 RecordScore = CurrentScore;
-                _playerDataService.UpdateRecordScore(RecordScore);
             }
             ScoreChanged.Invoke();
+        }
+        
+        public void UpdatePlayerData()
+        {
+            _playerDataService.UpdateRecordScore(RecordScore);
+        }
+
+        public void UpdateRecordScore()
+        {
+            _playerDataService.UpdateRecord();
         }
 
         public void Dispose()

@@ -9,13 +9,17 @@ namespace Services
     public sealed class PlayFabService : IInitializable
     {
         private const string PLAY_FAB_TITLE_ID = "D61B6";
+
         private readonly SceneLoader.SceneLoader _sceneLoader;
         private readonly LoadingUIService _loadingUIService;
         private readonly PlayerDataService _playerDataService;
 
         public event  Action<string> Error = _ => { };
 
-        public PlayFabService(SceneLoader.SceneLoader sceneLoader, LoadingUIService loadingUIService, PlayerDataService playerDataService)
+        public PlayFabService(
+            SceneLoader.SceneLoader sceneLoader,
+            LoadingUIService loadingUIService,
+            PlayerDataService playerDataService)
         {
             _sceneLoader = sceneLoader;
             _loadingUIService = loadingUIService;
@@ -52,10 +56,25 @@ namespace Services
             PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(),
                 resultCallback =>
                 {
-                    _playerDataService.ChangeLoginStatus(true);
-                    _playerDataService.SetPlayer(resultCallback.AccountInfo.Username, email, password);
-                    _sceneLoader.LoadSceneAsync(SceneLoader.SceneName.MAIN_MENU);
+                    OnGetAccountInfoSuccess(resultCallback.AccountInfo.PlayFabId, resultCallback.AccountInfo.Username, email, password);
                 }, OnError);
+        }
+        
+        private void OnGetAccountInfoSuccess(string playFabId, string username, string email, string password)
+        {
+            PlayFabClientAPI.GetLeaderboardAroundPlayer(new GetLeaderboardAroundPlayerRequest()
+            {
+                PlayFabId = playFabId, 
+                StatisticName = PlayFabStatistics.STATISTIC_NAME, 
+                MaxResultsCount = 1,
+            },
+            resultCallback =>
+            {
+                _playerDataService.ChangeLoginStatus(true);
+                var playerLeaderboardEntry = resultCallback.Leaderboard[0];
+                _playerDataService.SetPlayer(username, email, password, playerLeaderboardEntry.Position, playerLeaderboardEntry.StatValue);
+                _sceneLoader.LoadSceneAsync(SceneLoader.SceneName.MAIN_MENU);
+            }, OnError);
         }
 
         public void CreateAccount(string email, string username, string password)
@@ -64,14 +83,15 @@ namespace Services
             {
                 Email = email,
                 Username = username,
+                DisplayName = username,
                 Password = password,
-                RequireBothUsernameAndEmail = true
+                RequireBothUsernameAndEmail = true,
             };
 
             PlayFabClientAPI.RegisterPlayFabUser(request, 
                 resultCallback =>
                 {
-                    _playerDataService.SetPlayer(username, email, password);
+                    _playerDataService.SetPlayer(username, email, password, 0, 0);
                     SignIn(email, password);
                 }, OnError);
         }

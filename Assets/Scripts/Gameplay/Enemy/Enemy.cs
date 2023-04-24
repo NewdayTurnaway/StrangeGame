@@ -20,6 +20,7 @@ namespace Gameplay.Enemy
         public UnitHealth UnitHealth => _unitHealth;
 
         public event Action<Enemy> EnemyDestroyed = _ => { };
+        public event Action<Enemy> CountedMurder = _ => { };
 
         public Enemy(
             Updater updater,
@@ -68,6 +69,7 @@ namespace Gameplay.Enemy
         private void OnDeath()
         {
             _enemyInput.IsPause = true;
+            CountedMurder.Invoke(this);
             Dispose();
         }
     }
