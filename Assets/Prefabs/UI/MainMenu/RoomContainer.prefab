@@ -94,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -778,6 +778,7 @@ GameObject:
   - component: {fileID: 6686794657372255523}
   - component: {fileID: 6686794657372255522}
   - component: {fileID: 6686794657372255549}
+  - component: {fileID: 4490216822955486372}
   m_Layer: 5
   m_Name: RoomContainer
   m_TagString: Untagged
@@ -871,3 +872,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4490216822955486372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504795820648823237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e437053208928d045ae1b6876adefc3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roomButton: {fileID: 6686794657372255549}
+  _roomNameText: {fileID: 5490722505761544312}
+  _isOpenText: {fileID: 4552587780088060061}
+  _playerCountText: {fileID: 4552587780131365015}
+  _customPropertiesText: {fileID: 4552587781472350374}

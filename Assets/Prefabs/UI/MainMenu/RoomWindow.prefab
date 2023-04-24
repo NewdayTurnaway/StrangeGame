@@ -1113,7 +1113,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 8109874226025626283}
-  _backButton: {fileID: 2433483718933149513}
+  _roomLableText: {fileID: 2433483720243330788}
+  _roomInfoText: {fileID: 2433483719011209022}
+  _openColor: {r: 0.27058825, g: 0.8156863, b: 0.61960787, a: 0.8}
+  _closeColor: {r: 0.8862745, g: 0.011764706, b: 0.21960784, a: 0.8}
+  <LeaveButton>k__BackingField: {fileID: 2433483718933149513}
+  <OpenOrCloseButton>k__BackingField: {fileID: 6280074531396753739}
+  <ReadyButton>k__BackingField: {fileID: 2433483720395588566}
 --- !u!1 &2433483720395588587
 GameObject:
   m_ObjectHideFlags: 0

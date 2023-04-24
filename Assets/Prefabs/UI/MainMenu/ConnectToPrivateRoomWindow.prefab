@@ -1227,6 +1227,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 4048438757942921141}
   _backButton: {fileID: 4048438758263019958}
+  <PrivateRoomNameInputField>k__BackingField: {fileID: 4048438756927518270}
+  <ConnectButton>k__BackingField: {fileID: 4048438757810108314}
 --- !u!1 &4048438758084025547
 GameObject:
   m_ObjectHideFlags: 0

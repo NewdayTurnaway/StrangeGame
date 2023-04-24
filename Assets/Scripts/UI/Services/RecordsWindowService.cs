@@ -12,7 +12,6 @@ namespace UI.Services
         private readonly LoadingUIService _loadingUIService;
         private readonly PlayerDataService _playerDataService;
         private readonly PlayFabStatistics _playFabStatistics;
-        private readonly MainMenuCanvasView _mainMenuCanvasView;
         private readonly RecordsWindowCanvasView _recordsWindowCanvasView;
 
         public RecordsWindowService(
@@ -26,12 +25,11 @@ namespace UI.Services
             _loadingUIService = loadingUIService;
             _playerDataService = playerDataService;
             _playFabStatistics = playFabStatistics;
-            _mainMenuCanvasView = mainMenuCanvasView;
             _recordsWindowCanvasView = recordsWindowCanvasView;
 
             if (!_playerDataService.IsLoginSuccess)
             {
-                _mainMenuCanvasView.RecordsButton.interactable = false;
+                mainMenuCanvasView.RecordsButton.interactable = false;
                 return;
             }
 

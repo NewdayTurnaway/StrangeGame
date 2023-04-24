@@ -792,6 +792,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 5098279547904362494}
   _backButton: {fileID: 5845324710979331812}
+  _roomContainerView: {fileID: 4490216822955486372, guid: e7039fbb9df85f74ca4f4d4afa2c743d, type: 3}
+  <RefreshButton>k__BackingField: {fileID: 5750763756082100424}
+  <CreateRoomButton>k__BackingField: {fileID: 5098279548918158058}
+  <ConnectToPrivateRoomButton>k__BackingField: {fileID: 5098279548955838967}
+  <ConnectToRoomButton>k__BackingField: {fileID: 5098279548829767681}
+  <ContentRectTransform>k__BackingField: {fileID: 5098279547848650942}
 --- !u!1 &5098279547918094833
 GameObject:
   m_ObjectHideFlags: 0

@@ -7076,6 +7076,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LobbyWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 5098279547904362494, guid: 928cda4d38641df41865d73d222512e0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5098279547918094838, guid: 928cda4d38641df41865d73d222512e0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

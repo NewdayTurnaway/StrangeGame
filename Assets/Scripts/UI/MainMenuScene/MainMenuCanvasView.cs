@@ -20,6 +20,7 @@ namespace UI
         private UnityAction _signOutAction;
         private UnityAction _exitAction;
 
+        public Button MultiplayerButton => _multiplayerButton;
         public Button RecordsButton => _recordsButton;
 
         public void Init(
